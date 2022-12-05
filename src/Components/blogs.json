@@ -1,0 +1,74 @@
+[
+  {
+    "name": "Maximilian Strauss",
+    "title": "How Algorithms in Elon Musk’s Twitter Will Determine the Truth",
+    "description": "On October 27, 2022, Elon Musk completed the acquisition of Twitter for an enormous amount of $44 billion. With approximately ~240 Million daily active monetizable users (Q2/2022), this would equate to ~$183 per user.What followed after the acquisition can undoubtedly be described as controversial: Three top executives were immediately fired, and a week later, half of the staff was laid off. A paid model to receive a blue verified checkmark was introduced for $8 per month and was subsequently misused. A tweet by a fake account impersonating pharmaceutical company Eli Lilly that stated that they would make insulin tanked the stock and was estimated to cost $14 billion in market capitalization. And this is probably not the last thing we will hear on the way toward the new Twitter.",
+    "date": "25 Nov, 2022",
+    "views": "111",
+    "img": "img-1"
+  },
+  {
+    "name": "Alberto Valdez",
+    "title": "Writing Dozens of Python Models From SQL Tables? Use Regex",
+    "description": "In this article, we will go over the steps for reading an SQL file and match all the CREATE TABLE statements with a very simple Regex pattern, then write strings of Python classes/models from said tables. Final code here.Note that we will use Python 3.10 for this exercise. The results are designed to be used with FastAPI 0.86.0, SQLAlchemy 1.4, and Pydantic 1.10. We are also following this style of FastAPI, and we are using PostgreSQL 14.5.Finally, we will use this SQL schema as our use case, so we want to convert all 26 tables without partitions to SQLAlchemy/Pydantic models.",
+    "date": "21 Nov, 2022",
+    "views": "200+",
+    "img": "img-2"
+  },
+  {
+    "name": "John Vester",
+    "title": "How To Build an NFT Minting Dapp on the Flow Blockchain",
+    "description": "If you’ve followed along with the Flow series so far, you already know that the Flow Blockchain excels in handling digital assets, such as NFTs. It was built from the ground up as a better alternative to Ethereum’s network congestion and high fee issues.In addition, the Cadence smart contract language is a first-of-its-kind resource-oriented programming language that makes creating and managing digital assets easy and efficient. Although Solidity is excellent at facilitating Web3 through smart contracts, there are drawbacks. Cadence improves upon Solidity’s flaws by providing the ability to upgrade smart contracts and features that reduce the risk of human error, among other improvements.And finally, the list of tools and libraries available to developers looking to get started is extensive. So, let’s put it all together and build something on Flow.This article is a tutorial about creating a full-fledged NFT-minting dapp for the Flow Blockchain.",
+    "date": "30 Nov, 2022",
+    "views": "1300+",
+    "img": "img-3"
+  },
+  {
+    "name": "Christoph Nißle",
+    "title": "True Seniority in Software Careers",
+    "description": "I have often been in companies that tried to draw attention to tech talent. We all have heard it way too often: “The war for talent is over — the talents have won”.In order to get some piece of the talent cake, companies try to create career ladders and different ways for people to follow a career path. In my experience, it often comes down to one or two questions: Where does the expert-path end, and where does management begin? Is it the same career path and how do they interact?One remark upfront: I will not answer those questions. But along the discussions I’ve witnessed related to those questions, one thing always seemed very clear: At the beginning of a career it is about craftsmanship.",
+    "date": "21 Oct, 2022",
+    "views": "100+",
+    "img": "img-4"
+  },
+  {
+    "name": "Eskil Gjerde Sviggum",
+    "title": "Configuring App Updates for Mac Catalyst Apps With Sparkle",
+    "description": "Sparkle is an open-source framework for integrating app updates to your Mac app when not distributing via the App Store. It is highly flexible and allows you to push automatic updates to your app in a simple way. It's likely you’ve already seen Sparkle in many of the apps you use — it is for instance used in Docker, Arc, Hex Fiend, Rectangle, and countless others.",
+    "date": "30 Nov, 2022",
+    "views": "86",
+    "img": "img-5"
+  },
+  {
+    "name": "Michael Long",
+    "title": "Factory: Multiple Module Registration",
+    "description": "When you want to use a dependency injection system like Factory with multiple modules you often run into a “Who’s on first” dilemma.Let’s say that ModuleP specifies an abstractAccountLoading protocol.Moving on, we have an accounting module, ModuleA, that displays our accounts, but needs one of those loaders to load them.Finally, we have one more module, let’s call this one ModuleB, that knows how to build loaders of any type that we need.Note that ModuleA and ModuleB are independent. Neither one knows about the other one, but both have a direct dependency on ModuleP, our master of models and protocols.This is a classic modular contractural pattern.But we have an application to build. So how does ModuleA get an instance of an account loader, when it knows nothing about ModuleB?Well, this is an article about dependency injection, so let’s roll with that.",
+    "date": "30 Nov, 2022",
+    "views": "70",
+    "img": "img-6"
+  },
+  {
+    "name": "lisa Schmidt",
+    "title": "5 Pieces of Career Advice Hidden in Coldplay Lyrics",
+    "description": "Several mornings a week, I run to clear my head and set my intention for the day. On my morning run, I set my playlist to shuffle and hit the trail. A few songs in, a series of Coldplay songs drifted into the mix. Maybe it was the reflective frame of mind I was in, but in several lyrics, I heard truisms that make a lot of sense in the context of work life. Here are five that caught my attention:",
+    "date": "29 Nov, 2022",
+    "views": "10",
+    "img": "img-7"
+  },
+  {
+    "name": "Mehran Kamalifard",
+    "title": "Build a Secure Envelope in iOS",
+    "description": "Internet and network application are growing rapidly, so the need to protect such applications becomes vital. this article solves this problem by proposing two different encryption algorithms. The combinatorial effect of using asymmetric and symmetric algorithms produces a hybrid encryption scheme that makes it difficult for an insecure person to learn any information from the message transmitted over an unsecured transmission.",
+    "date": "29 Nov, 2022",
+    "views": "100+",
+    "img": "img-8"
+  },
+  {
+    "name": "Stephen Wayne",
+    "title": "Building and Testing a Worker Pool in Go",
+    "description": "A worker pool (also known as a thread pool) is a software design pattern where a set of workers (the “pool”) are created to concurrently process from a queue of tasks.In some languages, each worker is a thread (hence the name “thread pool”), but in Go, we have goroutines — lightweight threads managed by the Go runtime that enable concurrent programming.There is a queuing system to deliver tasks to workers, and logic for workers to acquire tasks. Often, the queuing system will be a channel, and the idle workers will take tasks on a first-come-first-serve basis.",
+    "date": "29 Nov, 2022",
+    "views": "800+",
+    "img": "img-9"
+  }
+]

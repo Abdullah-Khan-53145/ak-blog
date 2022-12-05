@@ -1,0 +1,58 @@
+.common__img__main{
+    padding: 10rem 5rem 7rem;
+    width: fit-content;
+
+}
+@media (max-width:756px) {
+    .common__img__main{
+        display: none;
+    
+    }
+    
+}
+.common__img__cover__img{
+    position: relative;
+    width: 25rem;
+    height: 33.5rem;
+
+}
+.common__img__cover__img img{
+    object-fit: contain;
+    width: 100%;
+    height: 100%;
+}
+.common__img__child{
+    position: relative;
+}
+.common__img__child div:nth-child(1){
+    position: absolute;
+    width: 20rem;
+    height: 2px;
+    background-color: black;
+    top:-2rem;
+    left: -5rem;
+}
+.common__img__child div:nth-child(3){
+    position: absolute;
+    width: 20rem;
+    height: 2px;
+    background-color: black;
+    bottom:-2rem;
+    right: -5rem;
+}
+.common__img__child div:nth-child(2){
+    position: absolute;
+    height: 15rem;
+    width: 2px;
+    background-color: black;
+    top: -10rem;
+    left: -2rem;
+}
+.common__img__child div:nth-child(4){
+    position: absolute;
+    height: 15rem;
+    width: 2px;
+    background-color: black;
+    bottom: -7rem;
+    right: -2rem;
+}

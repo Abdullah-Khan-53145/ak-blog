@@ -1,0 +1,17 @@
+.footer__main{
+    background-color: black;
+    color:white;
+    width: 100%;
+    margin-top: 5rem;
+}
+.footer__child{
+    width: 90%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin: auto;
+}
+.pages{
+    display: flex;
+    gap:1.5rem
+}

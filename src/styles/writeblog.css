@@ -1,0 +1,131 @@
+.main{
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top:7rem;
+    min-height: 90vh;
+}
+.child{
+    width: 90%;
+    align-items: center;
+    justify-content: center;
+    display: flex;
+    gap:5rem;
+}
+
+.writer_main{
+    display: flex;
+    position: relative;
+    width: 30rem;
+    padding: 2rem;
+    flex:1;
+    flex-direction: column;
+    align-items: center;
+    gap:1rem;
+    box-shadow: rgba(50, 50, 93, 0.25) 0px 2px 5px -1px, rgba(0, 0, 0, 0.3) 0px 1px 3px -1px;
+}
+@media (max-width:756px) {
+    .writer_main{
+        width: 100%;
+    }
+    
+}
+.writer_main label{
+    width: 100%;
+}
+.title__parent{
+    width: 100%;
+    display: flex;
+    gap:1rem;
+    align-items: flex-start;
+}
+.title__input{
+    border:none;
+    width: 80%;
+    flex: 1;
+    outline:none;
+    font-size: 3rem;
+    font-weight: 600;
+}
+.lable{
+    position: relative;
+    
+    font-weight: 400;
+    color:gray;
+    cursor: pointer;
+    
+}
+.lable img{
+  object-fit: cover;
+  object-position: center;
+    
+}
+.lable:hover{
+    text-decoration: underline;
+
+}
+.publish{
+
+    transition: .3s;
+}
+.filters{
+    display: flex;
+    flex-wrap: wrap;
+    gap:1rem;
+    width: 100%;
+    color:gray;
+    transition:color .2s;
+}
+.filters span{
+    padding: .5rem;
+    border:1px solid gray;
+    transition:border .2s;
+    cursor: pointer;
+}
+
+.filters span:hover{
+    color:black;
+    border:1px solid black;
+}
+.lock{
+    position: absolute;
+    inset: 0;
+    z-index: 100;
+    display:flex;
+    justify-content: center;
+    align-items: center;
+    background-color: rgba(255, 255, 255, 0.798);
+}
+.message{
+    display:flex;
+    flex-direction: column;
+    align-items: center;
+    gap:1rem;
+    
+}
+.text__editor{
+    width: 100%;
+}
+.change_img{
+    position: absolute;
+    inset: 0;
+    background-color: rgba(0, 0, 0, 0.644);
+    z-index: 100;
+    visibility: hidden;
+    display: flex;
+
+    justify-content: center;
+    align-items: center;
+}
+.change_img h2{
+    color:white;
+}
+.change_img_main:hover .change_img{
+    visibility: visible;
+}
+.img_upload{
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+}

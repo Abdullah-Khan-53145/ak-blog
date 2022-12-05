@@ -1,0 +1,143 @@
+.hero__main{
+    display: flex;
+    justify-content: center;
+    position: relative;
+    width: 100%;
+    
+   
+}
+.hero__child{
+    margin-top: 8rem;
+}
+.hero__main svg{
+    width: 1.2rem;
+    height: 1.2rem;
+   
+}
+.hero__main span{
+   display:flex;
+   align-items: center;
+   
+}
+.hero__child{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: flex-start;
+    width: 85%;
+}
+.hero__main__heading{
+    position: relative;
+    height: inherit;
+}
+.hero__main__heading h1{
+    margin: 0;
+    font-size: 4rem;
+}
+@media (max-width:500px) {
+    .hero__main__heading h1{
+        margin: 0;
+        font-size: 3rem;
+    }
+   }
+@media (max-width:400px) {
+    .hero__main__heading h1{
+        margin: 0;
+        font-size: 2.5rem;
+    }
+   }
+.hero__main__heading div:nth-child(2){
+    height: 2px;
+    position: absolute;
+    bottom: 0;
+    left: -5rem;
+    width: 55vw;
+    background-color: black;
+    animation: width_stretch 1s ease-out;
+}
+.hero__main__heading div:nth-child(3){
+    height: 15rem;
+    position: absolute;
+    top: -.5rem;
+    left: -1rem;
+    width: 2px;
+    background-color: black;
+    animation: height_stretch 1s ease-out;
+}
+.hero__main__bg{
+    width: 50vw;
+    height: 100%;
+    position: absolute;
+    z-index: -1;
+    top:0;
+    right: 0;
+
+}
+.hero__main__bg img{
+    object-fit: cover;
+}
+.hero__main__para{
+    width: 45%;
+}
+.hero__main__author__info{
+    display:flex;
+    align-items: center;
+    gap:.5rem;
+    margin-bottom: 1.5rem;
+}
+.authon__views__date{
+    display: flex;
+    gap:.5rem;
+}
+.authon__profile{
+    position: relative;
+    width: 2rem;
+    height: 2rem;
+    border:1px solid gray;
+    border-radius: 50%;
+}
+.authon__profile img{
+    position: relative;
+    width: 1.5rem;
+    height: 1.5rem;
+    border-radius: 50%;
+    object-fit: contain;
+}
+
+/* animations */
+
+@keyframes width_stretch {
+    0%{
+        width: 0;
+    }
+    100%{
+        width: 55vw;
+    }
+}
+@keyframes height_stretch {
+    0%{
+        height: 0rem;
+    }
+    100%{
+        height: 15rem;
+    }
+}
+
+
+@media (max-width:660px) {
+    .nav ul{
+        display:none;        
+    }
+    .hero__main__para{
+        width: 70%;
+    }
+    .hero__main__bg{
+        width: 30vw;
+        height: 100%;
+        position: absolute;
+        z-index: -1;
+        top:0;
+        right: 0;
+    
+    }
+}
