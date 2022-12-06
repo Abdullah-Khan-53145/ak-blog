@@ -5,10 +5,13 @@ import {
   getDoc,
   collection,
   query,
+  onSnapshot,
   where,
   getDocs,
+  addDoc,
 } from "firebase/firestore";
 import { db } from "../firebase";
+import { Toaster, toast } from "react-hot-toast";
 import Loading from "./Loading.jsx";
 import "../styles/blog.css";
 import Article from "./Article";
@@ -17,28 +20,48 @@ const Post = () => {
   const [blog, setBlog] = useState("");
   const [relatedBlogs, setRelatedBlogs] = useState([]);
   const [loading, setLoading] = useState(false);
+  const [loadingCmt, setLoadingCmt] = useState(false);
+  const [name, setName] = useState("");
+  const [email, setEmail] = useState("");
+  const [cmt, setCmt] = useState("");
+  const [cmts, setCmts] = useState([]);
 
-  const dummycmts = [
-    { name: "Samiullah Khan", comment: "leart alot, Thank you soo much" },
-    {
-      name: "soniya akhtr",
-      comment:
-        "well elaborated, not fond a single written tutorial like this , thanks alot sir",
-    },
-    {
-      name: "zahir shah",
-      comment:
-        "I ve been teaching this at university but not able to make student understand like this, great work sir",
-    },
-    {
-      name: "adeel abid",
-      comment: "Was searching for something like this, thanks alot sir",
-    },
-  ];
-
+  const addComment = async () => {
+    setLoadingCmt(true);
+    let commentObj = {
+      name,
+      comment: cmt,
+      email,
+    };
+    setName("");
+    setEmail("");
+    setCmt("");
+    const docRef = await addDoc(
+      collection(db, `blogs/${id}/comments`),
+      commentObj
+    );
+    console.log("Document written with ID: ", docRef.id);
+    setLoadingCmt(false);
+  };
   const handleComment = (e) => {
     e.preventDefault();
-    console.log("done");
+    if (name.length === "") {
+      toast.error("Please Enter  Name");
+    } else if (email === "") {
+      toast.error("Please Enter Email");
+    } else if (!email.includes("@") && !email.includes(".come")) {
+      toast.error("Please Enter a valid Email");
+    } else if (cmt === "") {
+      toast.error("Please Enter your comment");
+    } else {
+      addComment();
+    }
+
+    console.log({
+      name,
+      cmt,
+      email,
+    });
   };
   const getBlog = async () => {
     const docRef = doc(db, "blogs", id);
@@ -62,13 +85,40 @@ const Post = () => {
     setRelatedBlogs(arr);
     setLoading(false);
   };
+  const getComment = () => {
+    const q = query(collection(db, `blogs/${id}/comments`));
+    const unsubscribe = onSnapshot(q, (querySnapshot) => {
+      const comments = [];
+      querySnapshot.forEach((doc) => {
+        comments.push(doc.data());
+      });
+      setCmts(comments);
+    });
+  };
   useEffect(() => {
     window.scrollTo(0, 0);
     setLoading(true);
+    getComment();
     getBlog();
   }, [id]);
   return (
     <>
+      <Toaster
+        position={"bottom-center"}
+        reverseOrder={true}
+        toastOptions={{
+          className: "",
+          duration: 2000,
+          style: {
+            background: "white",
+            border: "1px solid gray",
+            fontFamily: "Jost",
+            borderRadius: "0",
+            fontSize: "1rem",
+            color: "black",
+          },
+        }}
+      />
       {loading ? (
         <Loading min_height="100vh" />
       ) : (
@@ -139,28 +189,46 @@ const Post = () => {
               </p>
               <div className="comments">
                 <h2>Comments</h2>
-                {dummycmts.map((cmt, index) => (
-                  <div className="comment">
-                    <span className="primary">
-                      <b>{cmt.name}</b>
-                    </span>
-                    <span className="primary">{cmt.comment}</span>
-                  </div>
-                ))}
+                {cmts.length !== 0 ? (
+                  cmts.map((cmt, index) => (
+                    <div className="comment" key={index}>
+                      <span className="primary">
+                        <b>{cmt.name}</b>
+                      </span>
+                      <span className="primary">{cmt.comment}</span>
+                    </div>
+                  ))
+                ) : (
+                  <h3>🤐No comments found</h3>
+                )}
               </div>
               <form onSubmit={handleComment} className="add__comment">
                 <h2>Leave a comment</h2>
                 <div className="comment__name">
                   <label htmlFor="name">Name</label>
-                  <input type="text" name="name" id="name" />
+                  <input
+                    value={name}
+                    onChange={(e) => setName(!loadingCmt && e.target.value)}
+                    type="text"
+                    name="name"
+                    id="name"
+                  />
                 </div>
                 <div className="comment__email">
                   <label htmlFor="email">Email</label>
-                  <input type="email" name="email" id="name" />
+                  <input
+                    value={email}
+                    onChange={(e) => setEmail(!loadingCmt && e.target.value)}
+                    type="email"
+                    name="email"
+                    id="name"
+                  />
                 </div>
                 <div className="comment__comment">
                   <label htmlFor="comment">Comment</label>
                   <textarea
+                    value={cmt}
+                    onChange={(e) => setCmt(!loadingCmt && e.target.value)}
                     type="textarea"
                     name="comment"
                     id="name"
@@ -168,7 +236,13 @@ const Post = () => {
                   ></textarea>
                 </div>
                 <button className="primary" type="submit">
-                  Add Comment
+                  {loadingCmt ? (
+                    <div className="lds-circle">
+                      <div></div>
+                    </div>
+                  ) : (
+                    <div> Add Comment</div>
+                  )}
                 </button>
               </form>
             </div>

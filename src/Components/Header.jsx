@@ -57,10 +57,18 @@ function Header({ user, logIn, logOut }) {
         </Link>
         <nav className="nav">
           <ul>
-            <li>Home</li>
-            <li>About</li>
-            <li>Contact</li>
-            <button className="primary">Write</button>
+            <Link to="/">
+              <li>Home</li>
+            </Link>
+            <Link to="/about">
+              <li>About</li>
+            </Link>
+            <Link to="/contact-us">
+              <li>Contact</li>
+            </Link>
+            <Link to="/write-a-blog" className="btn-primary">
+              Write
+            </Link>
           </ul>
         </nav>
         <div className="profile__header">

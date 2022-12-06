@@ -145,6 +145,13 @@
    text-align: start;
 
 }
+.add__comment button{
+   width: 12rem;
+   display:flex;
+   justify-content: center;
+   align-items: center;
+
+}
 .comment__name, .comment__email, .comment__comment{
     display: flex;
     flex-direction: column;
