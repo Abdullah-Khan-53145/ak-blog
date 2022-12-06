@@ -88,7 +88,7 @@ const Post = () => {
             </div>
           </div>
 
-          <h1>{dummy.title}</h1>
+          <h1 className = "primary">{dummy.title}</h1>
           <div className="blog__img">
             <img src={`/imgs/${dummy.img}.jpg`} />
           </div>
@@ -132,7 +132,7 @@ const Post = () => {
           </form>
         </div>
         <div className="side__blog__section">
-          <h1>About author</h1>
+          <h1 className = "primary">About author</h1>
           <div className="author__info">
             <div className="author_profile_side">
               <img src="/imgs/dummy_profile.JPG" />
@@ -142,7 +142,7 @@ const Post = () => {
             </p>
             <p className="primary">abdullah.khan53145@gmail.com</p>
           </div>
-          <h1>Related Blogs</h1>
+          <h1 className = "primary">Related Blogs</h1>
           <div className="related__blogs">
             {Blogs.map((blog, index) => index < 2 && <Article blog={blog} />)}
           </div>

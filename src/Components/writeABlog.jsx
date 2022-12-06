@@ -1,15 +1,12 @@
-import React, { useState, useRef, useMemo, useEffect } from "react";
+import React, { useState, useRef, useMemo } from "react";
 import { collection, addDoc } from "firebase/firestore";
 import { ref, uploadBytesResumable, getDownloadURL } from "firebase/storage";
 import { db, storage } from "../firebase";
-import styles from "../styles/writeblog.module.css";
+import "../styles/writeblog.css";
 import CommonImg from "./CommonImg";
-import dynamic from "next/dynamic";
-const JoditEditor = dynamic(() => import("jodit-react"), {
-  ssr: false,
-});
-import Image from "next/image";
-function writeABlog() {
+import JoditEditor from "jodit-react";
+
+function WriteABlog() {
   const [blogImg, setBlogImg] = useState(false);
   const [loading, setloading] = useState(false);
   const [error, setError] = useState({ status: false, mesg: "" });
@@ -57,9 +54,10 @@ function writeABlog() {
         "spellcheck",
         "lineafter",
       ],
-      maxHeight: 300,
+      // maxHeight: 300,
       width: "100%",
-      minHeight: 300,
+      minHeight: 600,
+      maxHeight: 600,
       readonly: false,
       placeholder: "Share your story ...",
     }),
@@ -136,29 +134,32 @@ function writeABlog() {
       setError({ status: false, mesg: "" });
     }, 2000);
   };
+
   return (
-    <div className={styles.main}>
-      <div className={styles.child}>
+    <div className="main">
+      <div className="child">
         <div></div>
-        <form onSubmit={handleSubmit} className={styles.writer_main}>
-          {/* <div className={styles.lock}>
-            <div className={styles.message}>
+
+        <form onSubmit={handleSubmit} className="writer_main">
+          {/* <div className="lock">
+            <div className="message">
               <h2>Need to Sign in before writing...!</h2>
               <button className="primary">Sign in</button>
             </div>
           </div> */}
-          <div className={styles.title__parent}>
+
+          <div className="title__parent">
             <input
               type="text"
               placeholder="Title"
               value={title}
               onChange={(e) => setTitle(e.target.value)}
-              className={styles.title__input}
+              className="title__input"
               required
             />
             <button
               disabled={loading}
-              className={`primary ${styles.publish}`}
+              className={`primary ${"publish"}`}
               onClick={handleErrors}
               type="submit"
             >
@@ -171,7 +172,7 @@ function writeABlog() {
               )}
             </button>
           </div>
-          <div className={styles.filters}>
+          <div className="filters">
             {filters.map((filter) => (
               <span
                 className="primary"
@@ -187,9 +188,9 @@ function writeABlog() {
               </span>
             ))}
           </div>
-          <div className={styles.img_upload}>
+          <div className="img_upload">
             <label
-              className={styles.lable}
+              className="label"
               style={{ height: blogImg ? "15rem" : "" }}
               htmlFor="Upload"
             >
@@ -210,11 +211,11 @@ function writeABlog() {
                 </>
               ) : (
                 <>
-                  <div className={styles.change_img_main}>
-                    <div className={styles.change_img}>
+                  <div className="change_img_main">
+                    <div className="change_img">
                       <h2>Change cover picture</h2>
                     </div>
-                    <Image src={URL.createObjectURL(blogImg)} fill />
+                    <img src={URL.createObjectURL(blogImg)} />
                   </div>
                 </>
               )}
@@ -229,7 +230,7 @@ function writeABlog() {
             )}
           </div>
 
-          <div className={styles.text__editor}>
+          <div className="text__editor">
             <JoditEditor
               value={content}
               ref={editor}
@@ -242,6 +243,7 @@ function writeABlog() {
             />
           </div>
         </form>
+
         <div>
           <CommonImg img="cover-img-2.jpg" />
         </div>
@@ -250,4 +252,4 @@ function writeABlog() {
   );
 }
 
-export default writeABlog;
+export default WriteABlog;

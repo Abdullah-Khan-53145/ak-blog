@@ -11,8 +11,13 @@ body {
   color: #000000;
  
 }
-h1, h2, span, p, label{
+h1, h2, span, p, label, textarea, div{
   text-align: left;
+  padding: 0;
+  margin:0;
+}
+.jodit-placeholder{
+  margin:0;
 }
 @media (max-width:1500px) {
   html{
@@ -156,6 +161,7 @@ button.secondary{
   background-image: repeating-linear-gradient(transparent 0,transparent 37px,#dadada 38px);
   display: flex;
   flex-direction: row;
+  flex-wrap: wrap;
   justify-content: space-between;
 }
 .jodit-ui-group:nth-child(2) .jodit-ui-group__classSpan {

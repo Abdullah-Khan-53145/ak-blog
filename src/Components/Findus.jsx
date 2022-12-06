@@ -1,6 +1,5 @@
 import React from "react";
-import Image from "next/image";
-import styles from "./findus.module.css";
+import "../styles/findus.css";
 function Findus() {
   return (
     <div className="findus__main">
@@ -25,8 +24,8 @@ function Findus() {
         </div>
         <div className="subcribe">
           <div className="subscribe__child">
-            <h1>Subscribe</h1>
-            <h1 className="secondary__heading">To Newsletter</h1>
+            <h1 className="primary">Subscribe</h1>
+            <h1 className="secondary__heading primary">To Newsletter</h1>
             <div className="subscribe__input">
               <input type="text" placeholder="email@example.com" />
               <button className="primary">Subscribe</button>

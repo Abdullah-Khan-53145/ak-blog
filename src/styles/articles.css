@@ -19,17 +19,18 @@
     height: 2px;
     width: 15rem;
     position: absolute;
-    bottom:2rem;
     left: 6rem;
     background-color: black;
+    animation: width_stretch 1s ease-out;
 }
 .articles__main__heading div:nth-child(3){
     height: 5rem;
     width: 2px;
     position: absolute;
-    bottom:0rem;
+    bottom:-2rem;
     right: -1rem;
     background-color: black;
+    animation: height_stretch 1s ease-out;
 }
 
 .articles__filters__search{
@@ -131,4 +132,20 @@ padding-bottom: .2rem;
         
     }
     
+}
+@keyframes width_stretch {
+    0%{
+        width: 0;
+    }
+    100%{
+         width: 15rem;
+    }
+}
+@keyframes height_stretch {
+    0%{
+        height: 0rem;
+    }
+    100%{
+        height: 5rem;
+    }
 }

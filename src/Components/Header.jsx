@@ -1,8 +1,7 @@
 import React from "react";
-import Image from "next/image";
-import styles from "./header.module.css";
+import "../styles/header.css";
 import { signInWithPopup, signOut, GoogleAuthProvider } from "firebase/auth";
-import { auth } from "../firebase";
+import { auth, provider } from "../firebase";
 import { connect } from "react-redux";
 import { logOutAPI, logInAPI } from "./actions/index";
 
@@ -18,7 +17,6 @@ function Header({ user, logIn, logOut }) {
     }
   };
   const signIn = async () => {
-    const provider = new GoogleAuthProvider();
     signInWithPopup(auth, provider)
       .then((result) => {
         const user = result.user;
@@ -54,12 +52,10 @@ function Header({ user, logIn, logOut }) {
   }, []);
 
   return (
-    <div
-      className={`${styles.header__main} ${background ? styles.active : ""}`}
-    >
-      <div className={styles.header__child}>
-        <div className="logo">&lt;l.code/&gt;</div>
-        <nav className={styles.nav}>
+    <div className={`header__main ${background ? "active" : ""}`}>
+      <div className="header__child">
+        <div className="logo">&lt;Ak.code/&gt;</div>
+        <nav className="nav">
           <ul>
             <li>Home</li>
             <li>About</li>
@@ -67,22 +63,16 @@ function Header({ user, logIn, logOut }) {
             <button className="primary">Write</button>
           </ul>
         </nav>
-        <div className={styles.profile__header}>
+        <div className="profile__header">
           <div className="profile_pic">
-            <Image
-              src={user ? user.photoURL : "/imgs/dummy_profile.JPG"}
-              fill
-            />
+            <img src={user ? user.photoURL : "/imgs/dummy_profile.JPG"} />
           </div>
           <div className="profile_info">
             <span className="primary">
               Hello,
               {user ? <b>{user.displayName}</b> : <b>Guest</b>}
             </span>
-            <span
-              className={`${styles.header__login} secondary`}
-              onClick={handleClick}
-            >
+            <span className="header__login secondary" onClick={handleClick}>
               Login
             </span>
           </div>

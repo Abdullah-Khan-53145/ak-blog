@@ -1,7 +1,6 @@
 import React from "react";
 import "../styles/commonimg.css";
-function CommonImg({img}) {
-  const img = "cover-img-3.png";
+function CommonImg({ img }) {
   return (
     <div className="common__img__main">
       <div className="common__img__child">

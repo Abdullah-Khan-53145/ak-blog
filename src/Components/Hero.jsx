@@ -1,19 +1,18 @@
 import React from "react";
-import Image from "next/image";
-import styles from "./hero.module.css";
+import "../styles/hero.css";
 function Hero() {
   return (
-    <div className={styles.hero__main}>
-      <div className={styles.hero__main__bg}>
-        <Image src="/imgs/hero-bg.png" fill />
+    <div className="hero__main">
+      <div className="hero__main__bg">
+        <img src="/imgs/hero-bg.png" />
       </div>
-      <div className={styles.hero__child}>
-        <div className={styles.hero__main__heading}>
+      <div className="hero__child">
+        <div className="hero__main__heading">
           {<h1>Learn coding by teaching others</h1>}
           <div></div>
           <div></div>
         </div>
-        <div className={styles.hero__main__para}>
+        <div className="hero__main__para">
           <p className="primary">
             Programming is an intriguing sector as it gives us the superpower to
             regulate computer programs on the go. It can be used for ships,
@@ -29,13 +28,13 @@ function Hero() {
             have dreamed of doing otherwise by following programming blogs.
           </p>
         </div>
-        <div className={styles.hero__main__author__info}>
-          <div className={styles.authon__profile}>
-            <Image src="/imgs/dummy_profile.JPG" fill />
+        <div className="hero__main__author__info">
+          <div className="authon__profile">
+            <img src="/imgs/dummy_profile.JPG" />
           </div>
-          <div className={styles.authon__info}>
+          <div className="authon__info">
             <span className="primary">Abdullah Khan</span>
-            <div className={styles.authon__views__date}>
+            <div className="authon__views__date">
               <span className="secondary">
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
