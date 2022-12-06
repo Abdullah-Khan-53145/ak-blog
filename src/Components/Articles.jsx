@@ -3,11 +3,21 @@ import "../styles/articles.css";
 import Article from "./Article";
 import Loading from "./Loading";
 import { db } from "../firebase";
-import { collection, query, getDocs } from "firebase/firestore";
-const Blogs = require("./blogs.json");
+import {
+  collection,
+  query,
+  getDocs,
+  where,
+  getCountFromServer,
+} from "firebase/firestore";
+import NotFound from "./NotFound";
+const coll = collection(db, "blogs");
 function Articles() {
   const [blogs, setBlogs] = useState([]);
   const [loading, setLoading] = useState(false);
+  const [pages, setPages] = useState([1]);
+  const [cat, setCat] = useState("General");
+  const [isEmpty, setIsEmpty] = useState(false);
   const filters = [
     { name: "Java", id: 111 },
     { name: "C/C++", id: 222 },
@@ -18,15 +28,39 @@ function Articles() {
     { name: "NodeJS", id: 777 },
     { name: "General", id: 888 },
   ];
-  const pages = [1, 2, 3, 4, 5, 6, 7];
   const breakpointColumnsObj = {
     default: 3,
     1027: 2,
     600: 1,
   };
-  const getAllBlogs = async () => {
-    const q = query(collection(db, "blogs"));
-
+  const getBlogsTotalCount = async (cat) => {
+    let query_;
+    if (cat !== "General") {
+      try {
+        query_ = query(coll, where("cat", "==", cat));
+      } catch (error) {
+        console.log(error);
+      }
+    } else {
+      query_ = query(coll);
+    }
+    const snapshot = await getCountFromServer(query_);
+    let count = snapshot.data().count;
+    if (!count) {
+      setPages([1]);
+      setBlogs([]);
+      setLoading(false);
+    } else {
+      let pg = [];
+      for (let i = 1; i <= count; i++) {
+        pg.push(i);
+      }
+      setPages(pg);
+      getAllBlogs(query_);
+    }
+  };
+  const getAllBlogs = async (query_) => {
+    const q = query_;
     const querySnapshot = await getDocs(q);
     const blogs = [];
     querySnapshot.forEach((doc) => {
@@ -38,7 +72,11 @@ function Articles() {
   };
   useEffect(() => {
     setLoading(true);
-    getAllBlogs();
+    getBlogsTotalCount(cat);
+  }, [cat]);
+  useEffect(() => {
+    setLoading(true);
+    getBlogsTotalCount(cat);
     console.log("called");
   }, []);
   return (
@@ -59,9 +97,10 @@ function Articles() {
                 <span
                   className="tertiary"
                   key={filter.id}
+                  onClick={() => setCat(filter.name)}
                   style={{
-                    color: filter.id === 888 ? "white" : "black",
-                    background: filter.id === 888 ? "black" : "white",
+                    color: filter.name === cat ? "white" : "black",
+                    background: filter.name === cat ? "black" : "white",
                   }}
                 >
                   {filter.name}
@@ -76,16 +115,19 @@ function Articles() {
         </div>
         {loading ? (
           <Loading min_height="50vh" />
+        ) : blogs.length === 0 ? (
+          <NotFound />
         ) : (
-          <div
-            className="articles__grid"
-            breakpointCols={breakpointColumnsObj}
-            columnClassName="my-masonry-grid_column"
-          >
-            {blogs.map((blog, index) => (
-              <Article key={index} blog={blog} />
-            ))}
-          </div>
+          <>
+            <div
+              className="articles__grid"
+              breakpointCols={breakpointColumnsObj}
+              columnClassName="my-masonry-grid_column"
+            >
+              {blogs.length !== 0 &&
+                blogs.map((blog, index) => <Article key={index} blog={blog} />)}
+            </div>
+          </>
         )}
 
         <div className="image__pages">
@@ -105,11 +147,17 @@ function Articles() {
               />
             </svg>
           </button>
-          {pages.map((page, index) => (
-            <span className="primary" key={index}>
-              {page}
+          {loading ? (
+            <span style={{ fontStyle: "italic", color: "gray" }}>
+              Loading ...
             </span>
-          ))}
+          ) : (
+            pages.map((page, index) => (
+              <span className="primary" key={index}>
+                {page}
+              </span>
+            ))
+          )}
           <button>
             <svg
               xmlns="http://www.w3.org/2000/svg"

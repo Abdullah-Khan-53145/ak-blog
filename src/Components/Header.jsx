@@ -4,7 +4,7 @@ import { signInWithPopup, signOut } from "firebase/auth";
 import { auth, provider } from "../firebase";
 import { logOutAPI, logInAPI } from "./actions/index";
 import { connect } from "react-redux";
-
+import { Link } from "react-router-dom";
 import { useEffect, useState } from "react";
 function Header({ user, logIn, logOut }) {
   const [background, setBackground] = useState(false);
@@ -54,7 +54,9 @@ function Header({ user, logIn, logOut }) {
   return (
     <div className={`header__main ${background ? "active" : ""}`}>
       <div className="header__child">
-        <div className="logo">&lt;Ak.code/&gt;</div>
+        <Link to="/" className="logo">
+          &lt;Ak.code/&gt;
+        </Link>
         <nav className="nav">
           <ul>
             <li>Home</li>
