@@ -1,8 +1,13 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import "../styles/articles.css";
 import Article from "./Article";
+import Loading from "./Loading";
+import { db } from "../firebase";
+import { collection, query, getDocs } from "firebase/firestore";
 const Blogs = require("./blogs.json");
 function Articles() {
+  const [blogs, setBlogs] = useState([]);
+  const [loading, setLoading] = useState(false);
   const filters = [
     { name: "Java", id: 111 },
     { name: "C/C++", id: 222 },
@@ -19,6 +24,23 @@ function Articles() {
     1027: 2,
     600: 1,
   };
+  const getAllBlogs = async () => {
+    const q = query(collection(db, "blogs"));
+
+    const querySnapshot = await getDocs(q);
+    const blogs = [];
+    querySnapshot.forEach((doc) => {
+      blogs.push({ ...doc.data(), id: doc.id });
+      console.log(doc.id, " => ", doc.data());
+    });
+    setBlogs(blogs);
+    setLoading(false);
+  };
+  useEffect(() => {
+    setLoading(true);
+    getAllBlogs();
+    console.log("called");
+  }, []);
   return (
     <div className="articles__main">
       <div className="articles__child">
@@ -52,15 +74,20 @@ function Articles() {
             <img src="/imgs/icon.svg" alt="" />
           </div>
         </div>
-        <div
-          className="articles__grid"
-          breakpointCols={breakpointColumnsObj}
-          columnClassName="my-masonry-grid_column"
-        >
-          {Blogs.map((blog, index) => (
-            <Article key={index} blog={blog} />
-          ))}
-        </div>
+        {loading ? (
+          <Loading min_height="50vh" />
+        ) : (
+          <div
+            className="articles__grid"
+            breakpointCols={breakpointColumnsObj}
+            columnClassName="my-masonry-grid_column"
+          >
+            {blogs.map((blog, index) => (
+              <Article key={index} blog={blog} />
+            ))}
+          </div>
+        )}
+
         <div className="image__pages">
           <button>
             <svg

@@ -4,14 +4,13 @@
     position: relative;
     display: flex;
     flex-direction: column;
-    justify-content: space-around;
     align-items: flex-start;
 }
 .article__info{
     padding: 0.5rem 2rem;
     display: flex;
     flex-direction: column;
-    justify-content: space-around;
+    justify-content: flex-start;
     align-items: flex-start;
 }
 .article__img{

@@ -1,24 +1,23 @@
-import React from "react";
+import React, { useEffect } from "react";
+import { Link } from "react-router-dom";
+
 import "../styles/article.css";
 function Article({ blog }) {
+  useEffect(() => {}, []);
   return (
     <div className="article__home__main">
       <div className="article__img">
-        <img src={`/imgs/${blog.img}.jpg`} />
+        <img src={blog.coverImg} />
       </div>
       <div className="article__info">
         <h2>{blog.title}</h2>
-        <p className="secondary">
-          {blog.description.length > 300
-            ? blog.description.slice(0, 300) + " ..."
-            : blog.description}
-        </p>
+
         <div className="article__main__author__info">
           <div className="article__author__profile">
-            <img src="/imgs/dummy_profile.JPG" />
+            <img src={blog.userImg} />
           </div>
           <div className="article__author__info">
-            <span className="primary">{blog.name}</span>
+            <span className="primary">{blog.userName}</span>
             <div className="article__author__views__date">
               <span className="secondary">
                 <svg
@@ -63,7 +62,9 @@ function Article({ blog }) {
           </div>
         </div>
       </div>
-      <button className="secondary">Continue reading</button>
+      <button className="secondary">
+        <Link to={`/blog/${blog.id}`}>Read Article</Link>
+      </button>
     </div>
   );
 }

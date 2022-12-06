@@ -3,7 +3,8 @@ import { collection, addDoc } from "firebase/firestore";
 import { ref, uploadBytesResumable, getDownloadURL } from "firebase/storage";
 import { connect } from "react-redux";
 import { db, storage, auth, provider } from "../firebase";
-import { signInWithPopup, signOut } from "firebase/auth";
+import { signInWithPopup } from "firebase/auth";
+import { Toaster, toast } from "react-hot-toast";
 import { logInAPI } from "./actions/index";
 import CommonImg from "./CommonImg";
 import JoditEditor from "jodit-react";
@@ -12,7 +13,6 @@ import "../styles/writeblog.css";
 function WriteABlog({ user, logIn }) {
   const [blogImg, setBlogImg] = useState(false);
   const [loading, setloading] = useState(false);
-  const [error, setError] = useState({ status: false, mesg: "" });
   const [title, setTitle] = useState("");
   const [cat, setCat] = useState("");
   const [content, setContent] = useState("");
@@ -23,6 +23,9 @@ function WriteABlog({ user, logIn }) {
       defaultActionOnPasteFromWord: "insert_clear_html",
       askBeforePasteFromWord: false,
       askBeforePasteHTML: false,
+      style: {
+        fontFamily: "jost",
+      },
       removeButtons: [
         "align",
         "erasor",
@@ -144,12 +147,18 @@ function WriteABlog({ user, logIn }) {
     setCat(ref);
     console.log(getDate());
   };
-
+  const resetFlieds = () => {
+    setBlogImg("");
+    setTitle("");
+    setCat("");
+    setContent("");
+  };
   const handleSubmit = () => {
     const storageRef = ref(storage, `images/${blogImg.name}`);
     const metadata = {
       contentType: "image/jpeg image/png image/gif",
     };
+
     const uploadTask = uploadBytesResumable(storageRef, blogImg, metadata);
     uploadTask.on(
       "state_changed",
@@ -173,6 +182,8 @@ function WriteABlog({ user, logIn }) {
             views: 0,
             date: getDate(),
           });
+          resetFlieds();
+          toast.success("blog uploaded");
           setloading(false);
         });
       }
@@ -191,25 +202,37 @@ function WriteABlog({ user, logIn }) {
   };
   const handleErrors = (e) => {
     e.preventDefault();
-    setError({ status: false, mesg: "" });
     if (!blogImg) {
-      setError({ status: true, mesg: "Please upload the Cover image" });
+      toast.error("Please upload the Cover image");
     } else if (title === "") {
-      setError({ status: true, mesg: "Please enter the title" });
+      toast.error("Please enter the title");
     } else if (content.split(" ").length < 30) {
-      setError({ status: true, mesg: "Blog must have atleast 30 words" });
+      toast.error("Blog must have atleast 30 words");
     } else if (cat === "") {
-      setError({ status: true, mesg: "Select the catagory" });
+      toast.error("Select the catagory");
     } else {
       handleSubmit();
     }
-    setTimeout(() => {
-      setError({ status: false, mesg: "" });
-    }, 3000);
   };
 
   return (
     <div className="main">
+      <Toaster
+        position={"bottom-center"}
+        reverseOrder={true}
+        toastOptions={{
+          className: "",
+          duration: 2000,
+          style: {
+            background: "white",
+            border: "1px solid gray",
+            fontFamily: "Jost",
+            borderRadius: "0",
+            fontSize: "1rem",
+            color: "black",
+          },
+        }}
+      />
       <div className="child">
         <div></div>
 
@@ -300,14 +323,6 @@ function WriteABlog({ user, logIn }) {
                 </>
               )}
             </label>
-            {error.status && (
-              <span
-                className="secondary error"
-                style={{ color: "red", width: "100%" }}
-              >
-                {error.mesg}
-              </span>
-            )}
           </div>
 
           <div className="text__editor">

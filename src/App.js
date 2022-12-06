@@ -4,6 +4,7 @@ import { Provider } from "react-redux";
 import store from "./store";
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import Header from "./Components/Header";
+import Blog from "./Components/Blog";
 import WriteABlog from "./Components/WriteABlog";
 import Footer from "./Components/Footer";
 function App() {
@@ -22,6 +23,16 @@ function App() {
         <>
           <Header />
           <WriteABlog />
+          <Footer />
+        </>
+      ),
+    },
+    {
+      path: "blog/:id",
+      element: (
+        <>
+          <Header />
+          <Blog />
           <Footer />
         </>
       ),
