@@ -30,6 +30,12 @@
 
 .writer_main label{
     width: 100%;
+    transition: .2s;
+    cursor: pointer;
+}
+.writer_main label:hover{
+    color:gray;
+    text-decoration: underline;
 }
 .title__parent{
     width: 100%;
@@ -138,7 +144,9 @@
     display: flex;
     flex-direction: column;
 }
-
+.error{
+    padding-top: 1rem ;
+}
 @media (max-width:756px) {
     .writer_main{
         width: 100%;

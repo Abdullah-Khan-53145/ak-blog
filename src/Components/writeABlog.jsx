@@ -1,12 +1,15 @@
 import React, { useState, useRef, useMemo } from "react";
 import { collection, addDoc } from "firebase/firestore";
 import { ref, uploadBytesResumable, getDownloadURL } from "firebase/storage";
-import { db, storage } from "../firebase";
-import "../styles/writeblog.css";
+import { connect } from "react-redux";
+import { db, storage, auth, provider } from "../firebase";
+import { signInWithPopup, signOut } from "firebase/auth";
+import { logInAPI } from "./actions/index";
 import CommonImg from "./CommonImg";
 import JoditEditor from "jodit-react";
+import "../styles/writeblog.css";
 
-function WriteABlog() {
+function WriteABlog({ user, logIn }) {
   const [blogImg, setBlogImg] = useState(false);
   const [loading, setloading] = useState(false);
   const [error, setError] = useState({ status: false, mesg: "" });
@@ -54,7 +57,6 @@ function WriteABlog() {
         "spellcheck",
         "lineafter",
       ],
-      // maxHeight: 300,
       width: "100%",
       minHeight: 600,
       maxHeight: 600,
@@ -73,6 +75,61 @@ function WriteABlog() {
     { name: "NodeJS", id: 777 },
     { name: "General", id: 888 },
   ];
+  // functions
+  const signIn = async () => {
+    signInWithPopup(auth, provider)
+      .then((result) => {
+        const user = result.user;
+        logIn(user);
+      })
+      .catch((error) => {
+        const errorCode = error.code;
+        const errorMessage = error.message;
+        console.log("error" + errorCode + "\n" + errorMessage);
+      });
+  };
+  const getDate = () => {
+    var today = new Date();
+    var dd = String(today.getDate());
+    var mm = String(today.getMonth() + 1).padStart(2, "0"); //January is 0!
+    var yyyy = today.getFullYear();
+
+    today =
+      dd +
+      " " +
+      (mm === 1
+        ? "Jan"
+        : mm === 2
+        ? "Feb"
+        : mm === 3
+        ? "March"
+        : mm === 4
+        ? "April"
+        : mm === 5
+        ? "May"
+        : mm === 6
+        ? "June"
+        : mm === 7
+        ? "July"
+        : mm === 8
+        ? "Aug"
+        : mm === 9
+        ? "Sep"
+        : mm === 10
+        ? "Oct"
+        : mm === 11
+        ? "Nuv"
+        : "Dec") +
+      ", " +
+      yyyy;
+    return today;
+  };
+  const addToDb = async (blog) => {
+    const docRef = await addDoc(collection(db, "blogs"), blog);
+    console.log("Document written with ID: ", docRef.id);
+  };
+
+  // event handlers
   const handleChangeImg = (e) => {
     let img = e.target.files[0];
     if (img === "" || img === undefined) {
@@ -80,16 +137,15 @@ function WriteABlog() {
     }
     setBlogImg(img);
   };
+  const handleSignIn = () => {
+    signIn();
+  };
   const handleCatClick = (ref) => {
     setCat(ref);
-  };
-  const addToDb = async (blog) => {
-    const docRef = await addDoc(collection(db, "blogs"), blog);
-    console.log("Document written with ID: ", docRef.id);
+    console.log(getDate());
   };
 
-  const handleSubmit = (e) => {
-    e.preventDefault();
+  const handleSubmit = () => {
     const storageRef = ref(storage, `images/${blogImg.name}`);
     const metadata = {
       contentType: "image/jpeg image/png image/gif",
@@ -108,10 +164,14 @@ function WriteABlog() {
         getDownloadURL(uploadTask.snapshot.ref).then((downloadURL) => {
           console.log("File available at", downloadURL);
           addToDb({
+            userName: user.displayName,
+            userImg: user.photoURL,
             title,
             cat,
             content,
-            img: downloadURL,
+            coverImg: downloadURL,
+            views: 0,
+            date: getDate(),
           });
           setloading(false);
         });
@@ -119,20 +179,33 @@ function WriteABlog() {
     );
 
     console.log({
+      userName: user.displayName,
+      userImg: user.photoURL,
       title,
       cat,
       content,
-      imgName: blogImg.name,
+      coverImg: blogImg.name,
+      views: 0,
+      date: getDate(),
     });
   };
-  const handleErrors = () => {
+  const handleErrors = (e) => {
+    e.preventDefault();
     setError({ status: false, mesg: "" });
     if (!blogImg) {
       setError({ status: true, mesg: "Please upload the Cover image" });
+    } else if (title === "") {
+      setError({ status: true, mesg: "Please enter the title" });
+    } else if (content.split(" ").length < 30) {
+      setError({ status: true, mesg: "Blog must have atleast 30 words" });
+    } else if (cat === "") {
+      setError({ status: true, mesg: "Select the catagory" });
+    } else {
+      handleSubmit();
     }
     setTimeout(() => {
       setError({ status: false, mesg: "" });
-    }, 2000);
+    }, 3000);
   };
 
   return (
@@ -140,13 +213,21 @@ function WriteABlog() {
       <div className="child">
         <div></div>
 
-        <form onSubmit={handleSubmit} className="writer_main">
-          {/* <div className="lock">
-            <div className="message">
-              <h2>Need to Sign in before writing...!</h2>
-              <button className="primary">Sign in</button>
+        <form onSubmit={handleErrors} className="writer_main">
+          {!user && (
+            <div className="lock">
+              <div className="message">
+                <h2>Need to Sign in before writing...!</h2>
+                <button
+                  type="button"
+                  onClick={handleSignIn}
+                  className="primary"
+                >
+                  Sign in
+                </button>
+              </div>
             </div>
-          </div> */}
+          )}
 
           <div className="title__parent">
             <input
@@ -155,7 +236,6 @@ function WriteABlog() {
               value={title}
               onChange={(e) => setTitle(e.target.value)}
               className="title__input"
-              required
             />
             <button
               disabled={loading}
@@ -222,7 +302,7 @@ function WriteABlog() {
             </label>
             {error.status && (
               <span
-                className="secondary"
+                className="secondary error"
                 style={{ color: "red", width: "100%" }}
               >
                 {error.mesg}
@@ -252,4 +332,11 @@ function WriteABlog() {
   );
 }
 
-export default WriteABlog;
+const mapStateToProps = (state) => ({
+  user: state.userState,
+});
+const dispatchStateToProps = (dispatch) => ({
+  logIn: (payload) => dispatch(logInAPI(payload)),
+});
+
+export default connect(mapStateToProps, dispatchStateToProps)(WriteABlog);

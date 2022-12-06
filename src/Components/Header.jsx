@@ -1,9 +1,9 @@
 import React from "react";
 import "../styles/header.css";
-import { signInWithPopup, signOut, GoogleAuthProvider } from "firebase/auth";
+import { signInWithPopup, signOut } from "firebase/auth";
 import { auth, provider } from "../firebase";
-import { connect } from "react-redux";
 import { logOutAPI, logInAPI } from "./actions/index";
+import { connect } from "react-redux";
 
 import { useEffect, useState } from "react";
 function Header({ user, logIn, logOut }) {
