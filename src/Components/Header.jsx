@@ -5,10 +5,12 @@ import { auth, provider } from "../firebase";
 import { logOutAPI, logInAPI } from "./actions/index";
 import { connect } from "react-redux";
 import { Link } from "react-router-dom";
+import { useLocation } from "react-router-dom";
 import { useEffect, useState } from "react";
 function Header({ user, logIn, logOut }) {
   const [background, setBackground] = useState(false);
   const [show, setShow] = useState(false);
+  const location = useLocation();
   // functions
   const displayHeader = () => {
     if (window.scrollY >= 20) {
@@ -48,6 +50,7 @@ function Header({ user, logIn, logOut }) {
   };
   // useEffects
   useEffect(() => {
+    console.log(location);
     window.addEventListener("scroll", displayHeader);
     return () => window.removeEventListener("scroll", displayHeader);
   }, []);
@@ -61,15 +64,46 @@ function Header({ user, logIn, logOut }) {
         <nav className="nav Desktop_elements">
           <ul>
             <Link to="/">
-              <li>Home</li>
+              <li
+                style={{
+                  color: location.pathname === "/" ? "gray" : "black",
+                  textDecoration:
+                    location.pathname === "/" ? "underline" : "none",
+                }}
+              >
+                Home
+              </li>
             </Link>
-            <Link to="/">
-              <li>About</li>
+            <Link to="/about">
+              <li
+                style={{
+                  color: location.pathname === "/about" ? "gray" : "black",
+                  textDecoration:
+                    location.pathname === "/about" ? "underline" : "none",
+                }}
+              >
+                About
+              </li>
             </Link>
-            <Link to="/">
-              <li>Contact</li>
+            <Link to="/about">
+              <li
+                style={{
+                  color: location.pathname === "/about" ? "gray" : "black",
+                  textDecoration:
+                    location.pathname === "/about" ? "underline" : "none",
+                }}
+              >
+                Contact
+              </li>
             </Link>
-            <Link to="/write-a-blog" className="btn-primary">
+            <Link
+              to="/write-a-blog"
+              className="btn-primary"
+              style={{
+                backgroundColor:
+                  location.pathname === "/write-a-blog" ? "gray" : "red",
+              }}
+            >
               Write
             </Link>
           </ul>
@@ -123,15 +157,46 @@ function Header({ user, logIn, logOut }) {
                 </div>
               </li>
               <Link to="/">
-                <li>Home</li>
+                <li
+                  style={{
+                    color: location.pathname === "/" ? "gray" : "black",
+                    textDecoration:
+                      location.pathname === "/" ? "underline" : "none",
+                  }}
+                >
+                  Home
+                </li>
               </Link>
-              <Link to="/">
-                <li>About</li>
+              <Link to="/about">
+                <li
+                  style={{
+                    color: location.pathname === "/about" ? "gray" : "black",
+                    textDecoration:
+                      location.pathname === "/about" ? "underline" : "none",
+                  }}
+                >
+                  About
+                </li>
               </Link>
-              <Link to="/">
-                <li>Contact</li>
+              <Link to="/about">
+                <li
+                  style={{
+                    color: location.pathname === "/about" ? "gray" : "black",
+                    textDecoration:
+                      location.pathname === "/about" ? "underline" : "none",
+                  }}
+                >
+                  Contact
+                </li>
               </Link>
-              <Link to="/write-a-blog" className="btn-primary">
+              <Link
+                to="/write-a-blog"
+                className="btn-primary"
+                style={{
+                  backgroundColor:
+                    location.pathname === "/write-a-blog" ? "gray" : "red",
+                }}
+              >
                 Write
               </Link>
             </ul>

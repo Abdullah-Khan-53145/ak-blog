@@ -7,6 +7,8 @@
     z-index: 10000;
     transition: background .3s;
 }
+
+
 .active{
     background-color: white;
     box-shadow: rgba(50, 50, 93, 0.25) 0px 13px 27px -5px, rgba(0, 0, 0, 0.3) 0px 8px 16px -8px;
@@ -19,6 +21,7 @@
     justify-content: space-between;
     align-items: center;
     width: 90%;
+    height: 5rem;
     margin: auto;
 }
 .header__child .btn-primary{
@@ -86,6 +89,9 @@ gap:.6rem;
     }
     .hamburger{
         display:block
+    }
+    .header__child, .header__main{
+        height: 7rem;
     }
     
 }
