@@ -59,6 +59,18 @@
     display: flex;
     gap:.5rem;
 }
+.icons:nth-child(3){
+    transform: scale(1.2);
+}
+.icons:nth-child(3):hover{
+    transform: scale(1.2);
+}
+.icons:nth-child(2){
+    transform: scale(1.2);
+}
+.icons:nth-child(2):hover{
+    transform: scale(1.2);
+}
 .subcribe{
     flex:1;
 }

@@ -1,6 +1,7 @@
-import React from "react";
+import React, {useState, useEffect} from "react";
 import "../styles/findus.css";
 function Findus() {
+  
   return (
     <div className="findus__main">
       <div className="findus__child">
@@ -11,15 +12,27 @@ function Findus() {
             <div></div>
           </div>
           <div className="social__icons">
-            <div className="icons">
+            <a
+              target="_blank"
+              href="https://www.linkedin.com/in/abdullah-khan-30471a238/"
+              className="icons"
+            >
               <img src="/imgs/linkedin-logo.svg" />
-            </div>
-            <div className="icons">
-              <img src="/imgs/google-logo.svg" />
-            </div>
-            <div className="icons">
+            </a>
+            <a
+              target="_blank"
+              href="https://www.facebook.com/profile.php?id=100073596902784"
+              className="icons"
+            >
               <img src="/imgs/facebook-logo.svg" />
-            </div>
+            </a>
+            <a
+              target="_blank"
+              href="https://github.com/Abdullah-Khan-53145"
+              className="icons"
+            >
+              <img src="/imgs/github-logo.png" />
+            </a>
           </div>
         </div>
         <div className="subcribe">

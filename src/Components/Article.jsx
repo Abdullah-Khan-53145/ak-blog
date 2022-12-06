@@ -62,9 +62,9 @@ function Article({ blog }) {
           </div>
         </div>
       </div>
-      <button className="secondary">
-        <Link to={`/blog/${blog.id}`}>Read Article</Link>
-      </button>
+      <Link to={`/blog/${blog.id}`} className="btn-secondary">
+        Read Article
+      </Link>
     </div>
   );
 }

@@ -71,7 +71,7 @@
     border-radius: 50%;
     object-fit: contain;
 }
-.article__home__main button{
+.article__home__main .btn-secondary{
     position: absolute;
     bottom:1rem;
     right: 1rem;

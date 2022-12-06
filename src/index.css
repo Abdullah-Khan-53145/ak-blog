@@ -98,7 +98,7 @@ span.tertiary{
 
 
 
-button{
+button, .btn-secondary{
   background-color: #000000;
   color:white;
   border:none;
@@ -115,7 +115,7 @@ button.primary{
   padding:9px 16px;
   font-size: 1.3rem;
 }
-button.secondary{
+button.secondary, .btn-secondary{
   padding:6px 9px;
   font-size: .9rem;
 }

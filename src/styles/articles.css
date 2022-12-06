@@ -21,7 +21,7 @@
     position: absolute;
     left: 6rem;
     background-color: black;
-    animation: width_stretch 1s ease-out;
+    animation: width_stretch_article 1s ease-out;
 }
 .articles__main__heading div:nth-child(3){
     height: 5rem;
@@ -30,7 +30,7 @@
     bottom:-2rem;
     right: -1rem;
     background-color: black;
-    animation: height_stretch 1s ease-out;
+    animation: height_stretch_article 1s ease-out;
 }
 
 .articles__filters__search{
@@ -138,7 +138,7 @@ padding-bottom: .2rem;
     }
     
 }
-@keyframes width_stretch {
+@keyframes width_stretch_article {
     0%{
         width: 0;
     }
@@ -146,7 +146,7 @@ padding-bottom: .2rem;
          width: 15rem;
     }
 }
-@keyframes height_stretch {
+@keyframes height_stretch_article {
     0%{
         height: 0rem;
     }
