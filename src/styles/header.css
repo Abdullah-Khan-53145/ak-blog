@@ -21,6 +21,10 @@
     width: 90%;
     margin: auto;
 }
+.header__child .btn-primary{
+    padding:9px 16px;
+    font-size: 1.3rem;
+}
 .nav ul{
     display:flex;
     gap:1.5rem;
@@ -41,18 +45,19 @@ display: flex;
 align-items: center;
 gap:.6rem;
 }
-.profile__header div:nth-child(1) {
-    position: relative;
+.header__main .profile__header div:nth-child(1) {
     width: 2.3rem;
     height: 2.3rem;
     border-radius: 50%;
+    margin:0;
+    padding:0;
 }
-.profile__header div:nth-child(1) img {
-    position: static;
+.header__main .profile__header div:nth-child(1) img {
     width: 2.3rem;
     height: 2.3rem;
     object-fit: contain;
     border:1px solid gray;
+    
     border-radius: 50%;
 }
 .profile__header div:nth-child(2) {
@@ -66,8 +71,196 @@ gap:.6rem;
     text-decoration: underline;
     
 }
+.header__main__mob{
+    display:none;
+}
+.hamburger{
+    display:none
+}
 @media (max-width:660px) {
-    .nav ul{
+    .Desktop_elements{
         display:none;        
     }
+    .header__main__mob{
+        display:flex;
+    }
+    .hamburger{
+        display:block
+    }
+    
 }
+
+
+/* Mob */
+.header__main__mob{
+    background-color: white;
+    box-shadow: rgba(50, 50, 93, 0.25) 0px 13px 27px -5px, rgba(0, 0, 0, 0.3) 0px 8px 16px -8px;
+    position: fixed;
+    z-index: 100;
+    right: 0;
+    top:0;
+    bottom:0;
+    display:flex;
+    justify-content: center;
+    padding: 1rem;
+    align-items: center;
+    transition: transform .3s ease-in-out;
+    transform: translateX(100%);
+}
+.header__child_mob{
+    display:flex;
+    justify-content: center;
+    align-items: center;
+
+    
+}
+.nav_mob li {
+    list-style: none;
+    
+}
+.nav_mob ul{
+   display: flex;
+   align-items: center;
+   margin:0;
+   padding:0;
+   flex-direction: column;
+   gap:4rem;
+   padding: 7rem 0;
+
+}
+.nav_mob a{
+   display:flex;
+   justify-content: center;
+   font-size: 3rem;
+
+
+}
+.nav_mob .profile__header{
+   padding:0;
+   margin: 0;
+   
+   
+   
+
+}
+.nav_mob .profile__header div:nth-child(1) {
+    width: 5rem;
+    height: 5rem;
+ 
+    
+}
+.nav_mob .profile_info span{
+    font-size: 2rem;
+    text-align: center;
+    
+ 
+    
+}
+.nav_mob .profile__header div:nth-child(1) img {
+    width: 5rem;
+    height: 5rem;
+    object-fit: contain;
+    border:1px solid gray;
+    
+    border-radius: 50%;
+}
+
+.nav_mob div:nth-child(2) {
+    display: flex;
+    flex-direction: column;
+
+}
+.nav_mob .profile__header  {
+    width: inherit;
+    height: inherit;
+    gap:1rem;
+    width: 35rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: center;
+}
+
+/* hamburder */
+:root {
+    --bar-bg: #212529;
+  }
+  
+  .menu-icon {
+    position: relative;
+    width: 50px;
+    height: 50px;
+    cursor: pointer;
+  }
+  
+  .menu-icon .menu-icon__cheeckbox {
+    display: block;
+    width: 100%;
+    height: 100%;
+    position: relative;
+    cursor: pointer;
+    z-index: 2;
+    -webkit-touch-callout: none;
+    position: absolute;
+    opacity: 0;
+  }
+  
+  .menu-icon div {
+    margin: auto;
+    position: absolute;
+    top: 0;
+    right: 0;
+    left: 0;
+    bottom: 0;
+    width: 22px;
+    height: 12px;
+  }
+  
+  .menu-icon span {
+    position: absolute;
+    display: block;
+    width: 100%;
+    height: 2px;
+    background-color: var(--bar-bg, #000);
+    border-radius: 1px;
+    -webkit-transition: all 0.2s cubic-bezier(0.1, 0.82, 0.76, 0.965);
+    transition: all 0.2s cubic-bezier(0.1, 0.82, 0.76, 0.965);
+  }
+  
+  .menu-icon span:first-of-type {
+    top: 0;
+  }
+  
+  .menu-icon span:last-of-type {
+    bottom: 0;
+  }
+  
+  .menu-icon.active span:first-of-type,
+  .menu-icon .menu-icon__cheeckbox:checked + div span:first-of-type {
+    -webkit-transform: rotate(45deg);
+            transform: rotate(45deg);
+    top: 5px;
+  }
+  
+  .menu-icon.active span:last-of-type,
+  .menu-icon .menu-icon__cheeckbox:checked + div span:last-of-type {
+    -webkit-transform: rotate(-45deg);
+            transform: rotate(-45deg);
+    bottom: 5px;
+  }
+  
+  .menu-icon.active:hover span:first-of-type,
+  .menu-icon.active:hover span:last-of-type,
+  .menu-icon:hover .menu-icon__cheeckbox:checked + div span:first-of-type,
+  .menu-icon:hover .menu-icon__cheeckbox:checked + div span:last-of-type {
+    width: 22px;
+  }
+  
+  @media (min-width: 1024px) {
+    .menu-icon:hover span:first-of-type {
+      width: 26px;
+    }
+    .menu-icon:hover span:last-of-type {
+      width: 12px;
+    }
+  }

@@ -147,6 +147,8 @@
 }
 .add__comment button{
    width: 12rem;
+   padding-left: 0;
+   padding-right: 0;
    display:flex;
    justify-content: center;
    align-items: center;

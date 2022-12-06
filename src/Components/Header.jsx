@@ -8,6 +8,7 @@ import { Link } from "react-router-dom";
 import { useEffect, useState } from "react";
 function Header({ user, logIn, logOut }) {
   const [background, setBackground] = useState(false);
+  const [show, setShow] = useState(false);
   // functions
   const displayHeader = () => {
     if (window.scrollY >= 20) {
@@ -42,7 +43,9 @@ function Header({ user, logIn, logOut }) {
         });
     }
   };
-
+  const handleShow = () => {
+    setShow(!show);
+  };
   // useEffects
   useEffect(() => {
     window.addEventListener("scroll", displayHeader);
@@ -55,15 +58,15 @@ function Header({ user, logIn, logOut }) {
         <Link to="/" className="logo">
           &lt;Ak.code/&gt;
         </Link>
-        <nav className="nav">
+        <nav className="nav Desktop_elements">
           <ul>
             <Link to="/">
               <li>Home</li>
             </Link>
-            <Link to="/about">
+            <Link to="/">
               <li>About</li>
             </Link>
-            <Link to="/contact-us">
+            <Link to="/">
               <li>Contact</li>
             </Link>
             <Link to="/write-a-blog" className="btn-primary">
@@ -71,7 +74,7 @@ function Header({ user, logIn, logOut }) {
             </Link>
           </ul>
         </nav>
-        <div className="profile__header">
+        <div className="profile__header Desktop_elements">
           <div className="profile_pic">
             <img src={user ? user.photoURL : "/imgs/dummy_profile.JPG"} />
           </div>
@@ -81,9 +84,58 @@ function Header({ user, logIn, logOut }) {
               {user ? <b>{user.displayName}</b> : <b>Guest</b>}
             </span>
             <span className="header__login secondary" onClick={handleClick}>
-              Login
+              {user ? "Logout" : "Login"}
             </span>
           </div>
+        </div>
+        <div className="hamburger" onClick={handleShow}>
+          <div class="menu-icon">
+            <input class="menu-icon__cheeckbox" type="checkbox" />
+            <div>
+              <span></span>
+              <span></span>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div
+        className="header__main__mob"
+        style={{ transform: show ? "translateX(0%)" : "translateX(100%)" }}
+      >
+        <div className="header__child_mob">
+          <nav className="nav_mob">
+            <ul>
+              <li className="profile__header">
+                <div className="profile_pic">
+                  <img src={user ? user.photoURL : "/imgs/dummy_profile.JPG"} />
+                </div>
+                <div className="profile_info">
+                  <span className="primary">
+                    Hello,
+                    {user ? <b>{user.displayName}</b> : <b>Guest</b>}
+                  </span>
+                  <span
+                    className="header__login secondary"
+                    onClick={handleClick}
+                  >
+                    {user ? "Logout" : "Login"}
+                  </span>
+                </div>
+              </li>
+              <Link to="/">
+                <li>Home</li>
+              </Link>
+              <Link to="/">
+                <li>About</li>
+              </Link>
+              <Link to="/">
+                <li>Contact</li>
+              </Link>
+              <Link to="/write-a-blog" className="btn-primary">
+                Write
+              </Link>
+            </ul>
+          </nav>
         </div>
       </div>
     </div>

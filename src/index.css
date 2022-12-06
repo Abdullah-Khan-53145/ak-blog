@@ -98,7 +98,7 @@ span.tertiary{
 
 
 
-button, .btn-secondary{
+button, .btn-secondary, .btn-primary{
   background-color: #000000;
   color:white;
   border:none;
@@ -107,11 +107,11 @@ button, .btn-secondary{
   
   
 }
-button:hover{
+button:hover, .btn-primary:hover, .btn-secondary:hover{
   background-color: #5A5A5A;
 
 }
-button.primary{
+button.primary, .btn-primary{
   padding:9px 16px;
   font-size: 1.3rem;
 }

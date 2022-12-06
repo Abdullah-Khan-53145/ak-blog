@@ -98,6 +98,7 @@
 .subscribe__input{
     width: 80%;
     display: flex;
+    
 }
 .subscribe__input button{
     width: 8rem;
@@ -110,8 +111,8 @@
     border:2px solid black;
     border-right:none ;
    flex:1;
-   font-size: 1rem;
-   padding:0 1rem ;
+   font-size: 1.2rem;
+   padding:1rem 1rem ;
    outline: none;
 }
 @media (max-width:756px) {

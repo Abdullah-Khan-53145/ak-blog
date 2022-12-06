@@ -189,7 +189,7 @@ function WriteABlog({ user, logIn }) {
             cat,
             content,
             userEmail: user.email,
-            index: count+1,
+            index: count + 1,
             coverImg: downloadURL,
             views: 0,
             date: getDate(),
@@ -218,8 +218,8 @@ function WriteABlog({ user, logIn }) {
       toast.error("Please upload the Cover image");
     } else if (title === "") {
       toast.error("Please enter the title");
-    } else if (content.split(" ").length < 30) {
-      toast.error("Blog must have atleast 30 words");
+    } else if (content.split(" ").length < 100) {
+      toast.error("Blog must have atleast 100 words");
     } else if (cat === "") {
       toast.error("Select the catagory");
     } else {
@@ -227,7 +227,9 @@ function WriteABlog({ user, logIn }) {
     }
   };
 
-  useEffect(() => {}, []);
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, []);
 
   return (
     <div className="main">
@@ -346,9 +348,6 @@ function WriteABlog({ user, logIn }) {
               config={config}
               tabIndex={1}
               onBlur={(newContent) => setContent(newContent)}
-              onChange={(newContent) => {
-                console.log(newContent);
-              }}
             />
           </div>
         </form>
