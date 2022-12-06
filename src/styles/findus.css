@@ -99,6 +99,13 @@
     width: 80%;
     display: flex;
 }
+.subscribe__input button{
+    width: 8rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    
+}
 .subscribe__input input{
     border:2px solid black;
     border-right:none ;
