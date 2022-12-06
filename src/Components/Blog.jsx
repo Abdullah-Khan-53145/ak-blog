@@ -12,6 +12,7 @@ import {
 } from "firebase/firestore";
 import { db } from "../firebase";
 import { Toaster, toast } from "react-hot-toast";
+import NotFound from "./NotFound";
 import Loading from "./Loading.jsx";
 import "../styles/blog.css";
 import Article from "./Article";
@@ -120,8 +121,9 @@ const Post = () => {
         }}
       />
       {loading ? (
-        <Loading min_height="100vh" />
+        <NotFound min_height="100vh" message={"Loading.Wait......"} />
       ) : (
+        // <Loading min_height="100vh" />
         <div className="blog_main">
           <div className="blog_child">
             <div className="main__blog">

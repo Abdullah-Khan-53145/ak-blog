@@ -94,21 +94,29 @@ gap:.6rem;
         height: 7rem;
     }
     
+    
+}
+@media (min-width:660px) {
+  .header__main__mob{
+    display:none;
+  }
+    
 }
 
 
 /* Mob */
 .header__main__mob{
     background-color: white;
+    display:flex;
     box-shadow: rgba(50, 50, 93, 0.25) 0px 13px 27px -5px, rgba(0, 0, 0, 0.3) 0px 8px 16px -8px;
     position: fixed;
     z-index: 100;
     right: 0;
     top:0;
-    bottom:0;
-    display:flex;
+    bottom:0;  
     justify-content: center;
     padding: 1rem;
+    width: 65vw;
     align-items: center;
     transition: transform .3s ease-in-out;
     transform: translateX(100%);
@@ -131,7 +139,6 @@ gap:.6rem;
    padding:0;
    flex-direction: column;
    gap:4rem;
-   padding: 7rem 0;
 
 }
 .nav_mob a{

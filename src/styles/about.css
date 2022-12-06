@@ -1,7 +1,41 @@
-.main{
-    color:red;
+.about__main{
+    display:flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    margin-top:7rem;
+    min-height: 95vh;
 }
-.title{
-    border:2px solid yellow;
+.about__child{
+    width: 90%;
+    display: flex;
+    gap:2rem
+}
+.about__child b{
+   margin-right: .5rem;
+}
+.about__child p{
+   font-size: 1.7rem;
+}
+.about__child h2{
+   font-size: 2.5rem;
+}
+.about__child h1,.about__child h2{
+   margin: 2rem 0;
+}
 
+@media (max-width:600px) {
+    .about__child{
+        flex-direction: column-reverse;
+        align-items: center;
+        justify-content: center;
+    }
+    
+}
+@media (max-width:756px) {
+    .about__main  .common__img__main{
+        display: flex;
+    
+    }
+    
 }

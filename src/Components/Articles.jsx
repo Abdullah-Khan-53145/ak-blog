@@ -92,7 +92,7 @@ function Articles() {
           <div></div>
         </div>
         <div className="articles__filters__search">
-          <div className="filter__mai">
+          <div className="filter__main">
             <b>
               <span className="primary">Filters</span>
             </b>
@@ -140,9 +140,9 @@ function Articles() {
           </form>
         </div>
         {loading ? (
-          <Loading min_height="50vh" />
+          <NotFound min_height="40vh" message={"Loading.Wait......"} />
         ) : blogs.length === 0 ? (
-          <NotFound />
+          <NotFound message={"No.Result.found"} />
         ) : (
           <>
             <div className="articles__grid">

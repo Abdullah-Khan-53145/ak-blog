@@ -7,6 +7,8 @@ import Header from "./Components/Header";
 import Blog from "./Components/Blog";
 import WriteABlog from "./Components/WriteABlog";
 import Footer from "./Components/Footer";
+import About from "./Components/About";
+import ContactUs from "./Components/ContactUs";
 function App() {
   const router = createBrowserRouter([
     {
@@ -20,21 +22,41 @@ function App() {
     {
       path: "write-a-blog",
       element: (
-        <>
+        <div className="app__main">
           <Header />
           <WriteABlog />
           <Footer />
-        </>
+        </div>
+      ),
+    },
+    {
+      path: "about",
+      element: (
+        <div className="app__main">
+          <Header />
+          <About />
+          <Footer />
+        </div>
       ),
     },
     {
       path: "blog/:id",
       element: (
-        <>
+        <div className="app__main">
           <Header />
           <Blog />
           <Footer />
-        </>
+        </div>
+      ),
+    },
+    {
+      path: "contact-us",
+      element: (
+        <div className="app__main">
+          <Header />
+          <ContactUs />
+          <Footer />
+        </div>
       ),
     },
   ]);

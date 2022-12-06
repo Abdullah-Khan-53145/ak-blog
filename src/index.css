@@ -9,6 +9,7 @@ body {
   font-family: 'Jost', sans-serif;
   font-style: normal;
   color: #000000;
+  min-height:100vh;
  
 }
 h1, h2, span, p, label, textarea, div{

@@ -66,7 +66,6 @@ function Header({ user, logIn, logOut }) {
             <Link to="/">
               <li
                 style={{
-                  color: location.pathname === "/" ? "gray" : "black",
                   textDecoration:
                     location.pathname === "/" ? "underline" : "none",
                 }}
@@ -77,7 +76,6 @@ function Header({ user, logIn, logOut }) {
             <Link to="/about">
               <li
                 style={{
-                  color: location.pathname === "/about" ? "gray" : "black",
                   textDecoration:
                     location.pathname === "/about" ? "underline" : "none",
                 }}
@@ -85,12 +83,11 @@ function Header({ user, logIn, logOut }) {
                 About
               </li>
             </Link>
-            <Link to="/about">
+            <Link to="/contact-us" >
               <li
                 style={{
-                  color: location.pathname === "/about" ? "gray" : "black",
                   textDecoration:
-                    location.pathname === "/about" ? "underline" : "none",
+                    location.pathname === "/contact-us" ? "underline" : "none",
                 }}
               >
                 Contact
@@ -101,7 +98,7 @@ function Header({ user, logIn, logOut }) {
               className="btn-primary"
               style={{
                 backgroundColor:
-                  location.pathname === "/write-a-blog" ? "gray" : "red",
+                  location.pathname === "/write-a-blog" ? "gray" : "black",
               }}
             >
               Write
@@ -159,7 +156,6 @@ function Header({ user, logIn, logOut }) {
               <Link to="/">
                 <li
                   style={{
-                    color: location.pathname === "/" ? "gray" : "black",
                     textDecoration:
                       location.pathname === "/" ? "underline" : "none",
                   }}
@@ -170,7 +166,6 @@ function Header({ user, logIn, logOut }) {
               <Link to="/about">
                 <li
                   style={{
-                    color: location.pathname === "/about" ? "gray" : "black",
                     textDecoration:
                       location.pathname === "/about" ? "underline" : "none",
                   }}
@@ -178,12 +173,13 @@ function Header({ user, logIn, logOut }) {
                   About
                 </li>
               </Link>
-              <Link to="/about">
+              <Link to="/contact-us">
                 <li
                   style={{
-                    color: location.pathname === "/about" ? "gray" : "black",
                     textDecoration:
-                      location.pathname === "/about" ? "underline" : "none",
+                      location.pathname === "/contact-us"
+                        ? "underline"
+                        : "none",
                   }}
                 >
                   Contact
@@ -194,7 +190,7 @@ function Header({ user, logIn, logOut }) {
                 className="btn-primary"
                 style={{
                   backgroundColor:
-                    location.pathname === "/write-a-blog" ? "gray" : "red",
+                    location.pathname === "/write-a-blog" ? "gray" : "black",
                 }}
               >
                 Write
