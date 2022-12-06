@@ -1,6 +1,11 @@
-import React, { useState, useRef, useMemo } from "react";
-import { collection, addDoc } from "firebase/firestore";
+import React, { useState, useRef, useMemo, useEffect } from "react";
 import { ref, uploadBytesResumable, getDownloadURL } from "firebase/storage";
+import {
+  collection,
+  query,
+  getCountFromServer,
+  addDoc,
+} from "firebase/firestore";
 import { connect } from "react-redux";
 import { db, storage, auth, provider } from "../firebase";
 import { signInWithPopup } from "firebase/auth";
@@ -153,7 +158,12 @@ function WriteABlog({ user, logIn }) {
     setCat("");
     setContent("");
   };
-  const handleSubmit = () => {
+
+  const handleSubmit = async () => {
+    const coll = collection(db, "blogs");
+    const query_ = query(coll);
+    const snapshot = await getCountFromServer(query_);
+    const count = snapshot.data().count;
     const storageRef = ref(storage, `images/${blogImg.name}`);
     const metadata = {
       contentType: "image/jpeg image/png image/gif",
@@ -178,6 +188,8 @@ function WriteABlog({ user, logIn }) {
             title,
             cat,
             content,
+            userEmail: user.email,
+            index: count+1,
             coverImg: downloadURL,
             views: 0,
             date: getDate(),
@@ -214,6 +226,8 @@ function WriteABlog({ user, logIn }) {
       handleSubmit();
     }
   };
+
+  useEffect(() => {}, []);
 
   return (
     <div className="main">

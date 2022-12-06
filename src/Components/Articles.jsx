@@ -9,6 +9,7 @@ import {
   getDocs,
   where,
   getCountFromServer,
+  orderBy,
 } from "firebase/firestore";
 import NotFound from "./NotFound";
 const coll = collection(db, "blogs");
@@ -16,8 +17,8 @@ function Articles() {
   const [blogs, setBlogs] = useState([]);
   const [loading, setLoading] = useState(false);
   const [pages, setPages] = useState([1]);
+  const [search, setSearch] = useState("");
   const [cat, setCat] = useState("General");
-  const [isEmpty, setIsEmpty] = useState(false);
   const filters = [
     { name: "Java", id: 111 },
     { name: "C/C++", id: 222 },
@@ -28,11 +29,7 @@ function Articles() {
     { name: "NodeJS", id: 777 },
     { name: "General", id: 888 },
   ];
-  const breakpointColumnsObj = {
-    default: 3,
-    1027: 2,
-    600: 1,
-  };
+
   const getBlogsTotalCount = async (cat) => {
     let query_;
     if (cat !== "General") {
@@ -42,10 +39,10 @@ function Articles() {
         console.log(error);
       }
     } else {
-      query_ = query(coll);
+      query_ = query(coll, orderBy("index", "asc"));
     }
     const snapshot = await getCountFromServer(query_);
-    let count = snapshot.data().count;
+    let count = Math.ceil(snapshot.data().count / 9);
     if (!count) {
       setPages([1]);
       setBlogs([]);
@@ -56,19 +53,27 @@ function Articles() {
         pg.push(i);
       }
       setPages(pg);
-      getAllBlogs(query_);
+      fetchAllBlogs(query_, "");
     }
   };
-  const getAllBlogs = async (query_) => {
+  const fetchAllBlogs = async (query_, key) => {
     const q = query_;
     const querySnapshot = await getDocs(q);
     const blogs = [];
     querySnapshot.forEach((doc) => {
-      blogs.push({ ...doc.data(), id: doc.id });
-      console.log(doc.id, " => ", doc.data());
+      if (doc.data().title.toLowerCase().includes(key.toLowerCase())) {
+        blogs.push({ ...doc.data(), id: doc.id });
+      }
     });
     setBlogs(blogs);
     setLoading(false);
+  };
+
+  const handleSearch = (e) => {
+    e.preventDefault();
+    setLoading(true);
+    const query_ = query(coll, orderBy("index", "asc"));
+    fetchAllBlogs(query_, search);
   };
   useEffect(() => {
     setLoading(true);
@@ -77,7 +82,6 @@ function Articles() {
   useEffect(() => {
     setLoading(true);
     getBlogsTotalCount(cat);
-    console.log("called");
   }, []);
   return (
     <div className="articles__main">
@@ -108,10 +112,19 @@ function Articles() {
               ))}
             </div>
           </div>
-          <div className="search__main">
-            <input type="text" placeholder="Search..." />
-            <img src="/imgs/icon.svg" alt="" />
-          </div>
+          <form onSubmit={handleSearch} className="search__main">
+            <input
+              type="text"
+              value={search}
+              onChange={(e) => {
+                setSearch(e.target.value);
+              }}
+              placeholder="Search..."
+            />
+            <button type="submit">
+              <img src="/imgs/icon.svg" alt="" />
+            </button>
+          </form>
         </div>
         {loading ? (
           <Loading min_height="50vh" />
@@ -119,11 +132,7 @@ function Articles() {
           <NotFound />
         ) : (
           <>
-            <div
-              className="articles__grid"
-              breakpointCols={breakpointColumnsObj}
-              columnClassName="my-masonry-grid_column"
-            >
+            <div className="articles__grid">
               {blogs.length !== 0 &&
                 blogs.map((blog, index) => <Article key={index} blog={blog} />)}
             </div>

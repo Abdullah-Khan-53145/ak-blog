@@ -46,8 +46,6 @@ function Header({ user, logIn, logOut }) {
   // useEffects
   useEffect(() => {
     window.addEventListener("scroll", displayHeader);
-    console.log(background);
-    console.log(user);
     return () => window.removeEventListener("scroll", displayHeader);
   }, []);
 
