@@ -8,6 +8,7 @@ import {
   onSnapshot,
   where,
   getDocs,
+  setDoc,
   addDoc,
 } from "firebase/firestore";
 import { db } from "../firebase";
@@ -70,6 +71,10 @@ const Post = () => {
 
     if (docSnap.exists()) {
       setBlog(docSnap.data());
+      setDoc(doc(db, "blogs", id), {
+        ...docSnap.data(),
+        views: docSnap.data().views + 1,
+      });
       getRelatedBlogs(docSnap.data());
     } else {
       console.log("No such document!");
@@ -84,6 +89,7 @@ const Post = () => {
       arr.push({ ...doc.data(), id: doc.id });
     });
     setRelatedBlogs(arr);
+
     setLoading(false);
   };
   const getComment = () => {
@@ -262,7 +268,8 @@ const Post = () => {
               <h1 className="primary">Related Blogs</h1>
               <div className="related__blogs">
                 {relatedBlogs.map(
-                  (blog, index) => index < 2 && <Article blog={blog} />
+                  (blog, index) =>
+                    index < 2 && <Article key={index} blog={blog} />
                 )}
               </div>
             </div>

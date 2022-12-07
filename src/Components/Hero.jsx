@@ -1,6 +1,23 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
+import { Link } from "react-router-dom";
+import { doc, getDoc } from "firebase/firestore";
+import { db } from "../firebase";
 import "../styles/hero.css";
 function Hero() {
+  const [blog, setBlog] = useState({});
+  const getBlog = async () => {
+    const docRef = doc(db, "blogs", "IhXZV07iKn8apRY7jIu1");
+    const docSnap = await getDoc(docRef);
+
+    if (docSnap.exists()) {
+      setBlog(docSnap.data());
+    } else {
+      console.log("No such document!");
+    }
+  };
+  useEffect(() => {
+    getBlog();
+  }, []);
   return (
     <div className="hero__main">
       <div className="hero__main__bg">
@@ -30,7 +47,7 @@ function Hero() {
         </div>
         <div className="hero__main__author__info">
           <div className="authon__profile">
-            <img src="/imgs/dummy_profile.JPG" />
+            <img src={blog.userImg} />
           </div>
           <div className="authon__info">
             <span className="primary">Abdullah Khan</span>
@@ -55,7 +72,7 @@ function Hero() {
                     d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"
                   />
                 </svg>
-                200+
+                {blog.views}
               </span>
               <span className="secondary">
                 <svg
@@ -72,12 +89,14 @@ function Hero() {
                     d="M6.75 3v2.25M17.25 3v2.25M3 18.75V7.5a2.25 2.25 0 012.25-2.25h13.5A2.25 2.25 0 0121 7.5v11.25m-18 0A2.25 2.25 0 005.25 21h13.5A2.25 2.25 0 0021 18.75m-18 0v-7.5A2.25 2.25 0 015.25 9h13.5A2.25 2.25 0 0121 11.25v7.5"
                   />
                 </svg>
-                17 July, 2022
+                {blog.date}
               </span>
             </div>
           </div>
         </div>
-        <button className="primary">Continue reading</button>
+        <Link to={`/blog/IhXZV07iKn8apRY7jIu1`} className="btn-primary">
+          Continue reading
+        </Link>
       </div>
     </div>
   );

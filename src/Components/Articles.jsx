@@ -132,8 +132,8 @@ function Articles() {
                 <path
                   d="M14.3269 15.0791L17.8 18.4424M16.68 9.47363C16.68 13.8078 13.1699 17.3213 8.84 17.3213C4.51009 17.3213 1 13.8078 1 9.47363C1 5.13949 4.51009 1.62598 8.84 1.62598C13.1699 1.62598 16.68 5.13949 16.68 9.47363Z"
                   stroke="black"
-                  stroke-width="2"
-                  stroke-linecap="round"
+                  strokeWidth="2"
+                  strokeLinecap="round"
                 />
               </svg>
             </button>

@@ -50,7 +50,6 @@ function Header({ user, logIn, logOut }) {
   };
   // useEffects
   useEffect(() => {
-    console.log(location);
     window.addEventListener("scroll", displayHeader);
     return () => window.removeEventListener("scroll", displayHeader);
   }, []);
@@ -83,7 +82,7 @@ function Header({ user, logIn, logOut }) {
                 About
               </li>
             </Link>
-            <Link to="/contact-us" >
+            <Link to="/contact-us">
               <li
                 style={{
                   textDecoration:
@@ -120,8 +119,8 @@ function Header({ user, logIn, logOut }) {
           </div>
         </div>
         <div className="hamburger" onClick={handleShow}>
-          <div class="menu-icon">
-            <input class="menu-icon__cheeckbox" type="checkbox" />
+          <div className="menu-icon">
+            <input className="menu-icon__cheeckbox" type="checkbox" />
             <div>
               <span></span>
               <span></span>

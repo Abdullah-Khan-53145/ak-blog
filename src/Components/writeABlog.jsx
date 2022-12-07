@@ -160,6 +160,7 @@ function WriteABlog({ user, logIn }) {
   };
 
   const handleSubmit = async () => {
+    setloading(true);
     const coll = collection(db, "blogs");
     const query_ = query(coll);
     const snapshot = await getCountFromServer(query_);
@@ -200,17 +201,6 @@ function WriteABlog({ user, logIn }) {
         });
       }
     );
-
-    console.log({
-      userName: user.displayName,
-      userImg: user.photoURL,
-      title,
-      cat,
-      content,
-      coverImg: blogImg.name,
-      views: 0,
-      date: getDate(),
-    });
   };
   const handleErrors = (e) => {
     e.preventDefault();
