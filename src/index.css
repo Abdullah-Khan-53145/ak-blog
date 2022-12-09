@@ -123,87 +123,7 @@ button.secondary, .btn-secondary{
 
 
 
-.jodit-status-bar{
-  display:none;
-}
-.jodit-workplace+.jodit-status-bar:not(:empty) {
-  border-top: 1px solid #dadada;
-  display: none;
-}
-.jodit-ui-group_separated_true:not(:last-child):not(.jodit-ui-group_before-spacer_true):after {
-  display: none;
-}
-.jodit-ui-spacer {
- 
-  display: none;
-}
-.jodit-toolbar-editor-collection_size_middle.jodit-toolbar-editor-collection_mode_horizontal {
-  background-image: -o-repeating-linear-gradient(transparent 0,transparent 37px,#dadada 38px);
-  background-image: repeating-linear-gradient(transparent 0,transparent 37px,#dadada 38px);
-  display: flex;
-  flex-direction: row;
-  flex-wrap: wrap;
-  justify-content: space-between;
-}
-.jodit-ui-group:nth-child(2) .jodit-ui-group__classSpan {
-  display:none;
- 
-}
-.jodit-ui-group_size_middle {
-  display:none;
- 
-}
-.jodit-add-new-line, .jodit-add-new-line * {
-  
-  display: none;
-  visibility: hidden;
-}
-.jodit-add-new-line, .jodit-add-new-line span {
-  visibility: hidden;
-  display: none;
-}
-.jodit-add-new-line, .jodit-add-new-line span::after {
-  
-  display: none;
-}
-.jodit-toolbar__box:not(:empty) {
-  border-bottom:none;
-}
-.jodit-toolbar__box:not(:empty) {
-  padding: 0;
-}
-.jodit-container:not(.jodit_inline) .jodit-wysiwyg {
-padding: 0;
-}
-.jodit-container, .jodit, .jodit_theme_default, .jodit-wysiwyg_mode,.jodit-container:not(.jodit_inline) {
-  border:none;
-}
 
-.jodit-container:not(.jodit_inline) .jodit-wysiwyg {
-  margin: 0;
-  outline: 0;
-  padding: 8px;
-  position: relative;
-}
-/* width */
-.jodit-container:not(.jodit_inline) .jodit-wysiwyg::-webkit-scrollbar {
-  width: 8px;
-}
-
-/* Track */
-.jodit-container:not(.jodit_inline) .jodit-wysiwyg::-webkit-scrollbar-track {
-  background: #f1f1f1;
-}
-
-/* Handle */
-.jodit-container:not(.jodit_inline) .jodit-wysiwyg::-webkit-scrollbar-thumb {
-  background: #d9d9d9;
-}
-
-/* Handle on hover */
-.jodit-container:not(.jodit_inline) .jodit-wysiwyg::-webkit-scrollbar-thumb:hover {
-  background: #555;
-}
 .lds-circle {
   display: inline-block;
   transform: translateZ(1px);
@@ -216,6 +136,12 @@ padding: 0;
   background: #fff;
   animation: lds-circle 2.4s cubic-bezier(0, 0.2, 0.8, 1) infinite;
 }
+
+
+
+
+
+
 @keyframes lds-circle {
   0%, 100% {
     animation-timing-function: cubic-bezier(0.5, 0, 1, 0.5);
@@ -230,4 +156,12 @@ padding: 0;
   100% {
     transform: rotateY(3600deg);
   }
+}
+
+
+
+
+.ql-editor{
+  max-width: 55.5rem;
+  min-height:50rem ;
 }

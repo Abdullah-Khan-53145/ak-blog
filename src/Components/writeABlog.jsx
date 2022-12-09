@@ -7,12 +7,13 @@ import {
   addDoc,
 } from "firebase/firestore";
 import { connect } from "react-redux";
+import "react-quill/dist/quill.snow.css";
 import { db, storage, auth, provider } from "../firebase";
 import { signInWithPopup } from "firebase/auth";
 import { Toaster, toast } from "react-hot-toast";
 import { logInAPI } from "./actions/index";
 import CommonImg from "./CommonImg";
-import JoditEditor from "jodit-react";
+import ReactQuill from "react-quill";
 import "../styles/writeblog.css";
 
 function WriteABlog({ user, logIn }) {
@@ -21,58 +22,7 @@ function WriteABlog({ user, logIn }) {
   const [title, setTitle] = useState("");
   const [cat, setCat] = useState("");
   const [content, setContent] = useState("");
-  const editor = useRef(null);
-  const config = useMemo(
-    () => ({
-      sizeLG: 0,
-      defaultActionOnPasteFromWord: "insert_clear_html",
-      askBeforePasteFromWord: false,
-      askBeforePasteHTML: false,
-      style: {
-        fontFamily: "jost",
-      },
-      removeButtons: [
-        "align",
-        "erasor",
-        "hr",
-        "source",
-        "font",
-        "image",
-        "brush",
-        "fontsize",
-        "fullsize",
-        "undo",
-        "redo",
-        "dots",
-        "eraser",
-        "copyformat",
-        "about",
-        "preview",
-        "print",
-        "video",
-        "find",
-        "file",
-        "superscript",
-        "subscript",
-        "table",
-        "indent",
-        "outdent",
-        "symbols",
-        "selectall",
-        "paste",
-        "cut",
-        "copy",
-        "spellcheck",
-        "lineafter",
-      ],
-      width: "100%",
-      minHeight: 600,
-      maxHeight: 600,
-      readonly: false,
-      placeholder: "Share your story ...",
-    }),
-    []
-  );
+
   const filters = [
     { name: "Java", id: 111 },
     { name: "C/C++", id: 222 },
@@ -332,17 +282,18 @@ function WriteABlog({ user, logIn }) {
           </div>
 
           <div className="text__editor">
-            <JoditEditor
+            <ReactQuill
+              theme="snow"
               value={content}
-              ref={editor}
-              config={config}
-              tabIndex={1}
-              onBlur={(newContent) => setContent(newContent)}
+              onChange={(e) => {
+                setContent(e);
+                console.log(content);
+              }}
             />
           </div>
         </form>
 
-        <div>
+        <div className="side_img">
           <CommonImg img="cover-img-2.jpg" />
         </div>
       </div>
