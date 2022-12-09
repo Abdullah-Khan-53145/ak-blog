@@ -14,7 +14,6 @@ import {
 import { db } from "../firebase";
 import { Toaster, toast } from "react-hot-toast";
 import NotFound from "./NotFound";
-import Loading from "./Loading.jsx";
 import "../styles/blog.css";
 import Article from "./Article";
 const Post = () => {
@@ -182,33 +181,34 @@ const Post = () => {
                   </div>
                 </div>
               </div>
+              <div className="main__blog__main">
+                <h1 className="primary">{blog.title}</h1>
+                <div className="blog__img">
+                  <img src={blog.coverImg} />
+                </div>
+                <p
+                  dangerouslySetInnerHTML={{ __html: blog.content }}
+                  className="primary"
+                />
 
-              <h1 className="primary">{blog.title}</h1>
-              <div className="blog__img">
-                <img src={blog.coverImg} />
-              </div>
-              <p
-                dangerouslySetInnerHTML={{ __html: blog.content }}
-                className="primary"
-              />
-
-              <p className="primary">
-                <b>Category: </b> {blog.cat}
-              </p>
-              <div className="comments">
-                <h2>Comments</h2>
-                {cmts.length !== 0 ? (
-                  cmts.map((cmt, index) => (
-                    <div className="comment" key={index}>
-                      <span className="primary">
-                        <b>{cmt.name}</b>
-                      </span>
-                      <span className="primary">{cmt.comment}</span>
-                    </div>
-                  ))
-                ) : (
-                  <h3>🤐No comments found</h3>
-                )}
+                <p className="primary">
+                  <b>Category: </b> {blog.cat}
+                </p>
+                <div className="comments">
+                  <h2>Comments</h2>
+                  {cmts.length !== 0 ? (
+                    cmts.map((cmt, index) => (
+                      <div className="comment" key={index}>
+                        <span className="primary">
+                          <b>{cmt.name}</b>
+                        </span>
+                        <span className="primary">{cmt.comment}</span>
+                      </div>
+                    ))
+                  ) : (
+                    <h3>🤐No comments found</h3>
+                  )}
+                </div>
               </div>
               <form onSubmit={handleComment} className="add__comment">
                 <h2>Leave a comment</h2>
@@ -254,23 +254,25 @@ const Post = () => {
                 </button>
               </form>
             </div>
-            <div className="side__blog__section">
-              <h1 className="primary">About author</h1>
-              <div className="author__info">
-                <div className="author_profile_side">
-                  <img src={blog.userImg} />
+            <div className="side__blog__section_main">
+              <div className="side__blog__section">
+                <h1 className="primary">About author</h1>
+                <div className="author__info">
+                  <div className="author_profile_side">
+                    <img src={blog.userImg} />
+                  </div>
+                  <p className="primary">
+                    <b>{blog.userName}</b>
+                  </p>
+                  <p className="primary">{blog.userEmail}</p>
                 </div>
-                <p className="primary">
-                  <b>{blog.userName}</b>
-                </p>
-                <p className="primary">{blog.userEmail}</p>
-              </div>
-              <h1 className="primary">Related Blogs</h1>
-              <div className="related__blogs">
-                {relatedBlogs.map(
-                  (blog, index) =>
-                    index < 2 && <Article key={index} blog={blog} />
-                )}
+                <h1 className="primary">Related Blogs</h1>
+                <div className="related__blogs">
+                  {relatedBlogs.map(
+                    (blog, index) =>
+                      index < 2 && <Article key={index} blog={blog} />
+                  )}
+                </div>
               </div>
             </div>
           </div>

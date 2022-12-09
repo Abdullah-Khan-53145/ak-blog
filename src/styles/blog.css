@@ -80,12 +80,19 @@
     border-radius: 50%;
     object-fit: contain;
 }
-.side__blog__section{
+.side__blog__section_main{
     width: 30%;
+}
+.side__blog__section{
+    width: 100%;
     background-color: #D9D9D9;
 }
 .main__blog{
-    flex:1;
+flex:1;
+width: 100%;
+}
+.main__blog__main *{
+width: 100%;
 }
 .side__blog__section{
     display:flex;
@@ -172,8 +179,9 @@
    width: 100%;
    outline: none;
 }
+
 @media (max-width:756px) {
-    .side__blog__section{
+    .side__blog__section_main{
         display:none;
     }
 }
