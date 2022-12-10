@@ -1,9 +1,19 @@
 import React from "react";
+import Typed from "react-typed";
 import "../styles/notfound.css";
 function NotFound({ message, min_height }) {
   return (
     <div className="not__found__main" style={{ minHeight: min_height }}>
-      <h2 className="typing">&lt;{message}/&gt;</h2>
+      <Typed
+        strings={
+          message
+            ? ["&lt;Loading.Please.Wait/&gt;", "return Please_Wait;"]
+            : ["&lt;No.Result.Found/&gt;", "return NOT_FOUND;"]
+        }
+        typeSpeed={100}
+        backSpeed={50}
+        loop
+      />
     </div>
   );
 }

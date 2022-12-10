@@ -140,9 +140,9 @@ function Articles() {
           </form>
         </div>
         {loading ? (
-          <NotFound min_height="40vh" message={"Loading.Wait......"} />
+          <NotFound min_height="40vh" message={true} />
         ) : blogs.length === 0 ? (
-          <NotFound message={"No.Result.found"} />
+          <NotFound message={false} />
         ) : (
           <>
             <div className="articles__grid">

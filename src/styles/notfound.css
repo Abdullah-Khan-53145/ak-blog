@@ -4,10 +4,17 @@
     align-items: center;
     height: 50vh;
 }
-.not__found__main h2{
+.not__found__main span{
     font-family: 'Caveat', cursive;
   font-size: 2rem;
 }
+
+
+
+
+
+
+
 .typing {
     width:15.5ch;
     animation: typing 2s steps(16) , blink .5s step-end infinite ;

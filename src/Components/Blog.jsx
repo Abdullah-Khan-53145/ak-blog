@@ -128,7 +128,6 @@ const Post = () => {
       {loading ? (
         <NotFound min_height="100vh" message={"Loading.Wait......"} />
       ) : (
-        // <Loading min_height="100vh" />
         <div className="blog_main">
           <div className="blog_child">
             <div className="main__blog">
@@ -194,6 +193,7 @@ const Post = () => {
                 <p className="primary">
                   <b>Category: </b> {blog.cat}
                 </p>
+
                 <div className="comments">
                   <h2>Comments</h2>
                   {cmts.length !== 0 ? (
