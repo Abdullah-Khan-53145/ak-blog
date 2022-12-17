@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
-import { useParams } from "react-router-dom";
+
+import { useParams, Link } from "react-router-dom";
 import {
   doc,
   getDoc,
@@ -265,6 +266,13 @@ const Post = () => {
                     <b>{blog.userName}</b>
                   </p>
                   <p className="primary">{blog.userEmail}</p>
+                  <Link
+                    style={{ marginTop: "1rem" }}
+                    className="btn-secondary"
+                    to={`/user/${blog.uid}`}
+                  >
+                    All Blogs
+                  </Link>
                 </div>
                 <h1 className="primary">Related Blogs</h1>
                 <div className="related__blogs">

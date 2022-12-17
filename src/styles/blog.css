@@ -137,6 +137,9 @@ width: 100%;
     display:flex;
     gap:.5rem;
 }
+.comment span{
+   width: fit-content;
+}
 .add__comment{
     padding: 2rem;
     display:flex;
