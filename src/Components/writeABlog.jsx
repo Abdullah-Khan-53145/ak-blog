@@ -143,6 +143,7 @@ function WriteABlog({ user, logIn }) {
             index: count + 1,
             coverImg: downloadURL,
             views: 0,
+            uid: user.uid,
             date: getDate(),
           });
           resetFlieds();
