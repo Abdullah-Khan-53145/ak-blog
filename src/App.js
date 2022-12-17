@@ -61,6 +61,16 @@ function App() {
       ),
     },
     {
+      path: "user/:uid/edit-blog/:id",
+      element: (
+        <div className="app__main">
+          <Header />
+          <WriteABlog />
+          <Footer />
+        </div>
+      ),
+    },
+    {
       path: "contact-us",
       element: (
         <div className="app__main">

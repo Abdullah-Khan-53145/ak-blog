@@ -83,16 +83,20 @@ function Header({ user, logIn, logOut }) {
                 Home
               </li>
             </Link>
-            <Link to="/">
-              <li
-                style={{
-                  textDecoration:
-                    location.pathname === "/" ? "underline" : "none",
-                }}
-              >
-                My Blogs
-              </li>
-            </Link>
+            {user && (
+              <Link to={`/user/${user?.uid}/`}>
+                <li
+                  style={{
+                    textDecoration:
+                      location.pathname === `/user/${user.uid}/`
+                        ? "underline"
+                        : "none",
+                  }}
+                >
+                  My Blogs
+                </li>
+              </Link>
+            )}
             <Link to="/about">
               <li
                 style={{
@@ -183,6 +187,20 @@ function Header({ user, logIn, logOut }) {
                   Home
                 </li>
               </Link>
+              {user && (
+                <Link to={`/user/${user?.uid}/`}>
+                  <li
+                    style={{
+                      textDecoration:
+                        location.pathname === `/user/${user.uid}/`
+                          ? "underline"
+                          : "none",
+                    }}
+                  >
+                    My Blogs
+                  </li>
+                </Link>
+              )}
               <Link to="/about">
                 <li
                   style={{

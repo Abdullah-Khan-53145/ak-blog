@@ -5,8 +5,12 @@ import {
   query,
   getCountFromServer,
   addDoc,
+  doc,
+  setDoc,
+  getDoc,
 } from "firebase/firestore";
 import { connect } from "react-redux";
+import { useParams } from "react-router-dom";
 import "react-quill/dist/quill.snow.css";
 import { db, storage, auth, provider } from "../firebase";
 import { signInWithPopup } from "firebase/auth";
@@ -17,12 +21,14 @@ import ReactQuill from "react-quill";
 import "../styles/writeblog.css";
 
 function WriteABlog({ user, logIn }) {
+  const { id } = useParams();
   const [blogImg, setBlogImg] = useState(false);
   const [loading, setloading] = useState(false);
+  const [editImg, setEditImg] = useState(false);
   const [title, setTitle] = useState("");
   const [cat, setCat] = useState("");
   const [content, setContent] = useState("");
-
+  const [editBlog, setEditBlog] = useState({});
   const filters = [
     { name: "Java", id: 111 },
     { name: "C/C++", id: 222 },
@@ -34,6 +40,22 @@ function WriteABlog({ user, logIn }) {
     { name: "General", id: 888 },
   ];
   // functions
+  const getBlog = async () => {
+    const docRef = doc(db, "blogs", id);
+    const docSnap = await getDoc(docRef);
+
+    if (docSnap.exists()) {
+      console.log(docSnap.data());
+      setEditBlog(docSnap.data());
+      setContent(docSnap.data().content);
+      setEditImg(docSnap.data().coverImg);
+      setBlogImg(true);
+      setCat(docSnap.data().cat);
+      setTitle(docSnap.data().title);
+    } else {
+      console.log("No such document!");
+    }
+  };
   const signIn = async () => {
     signInWithPopup(auth, provider)
       .then((result) => {
@@ -86,6 +108,9 @@ function WriteABlog({ user, logIn }) {
     const docRef = await addDoc(collection(db, "blogs"), blog);
     console.log("Document written with ID: ", docRef.id);
   };
+  const SetBlog = async (blog) => {
+    await setDoc(doc(db, "blogs", id), blog);
+  };
 
   // event handlers
   const handleChangeImg = (e) => {
@@ -94,6 +119,7 @@ function WriteABlog({ user, logIn }) {
       return;
     }
     setBlogImg(img);
+    setEditImg(false);
   };
   const handleSignIn = () => {
     signIn();
@@ -110,7 +136,6 @@ function WriteABlog({ user, logIn }) {
   };
 
   const handleSubmit = async () => {
-    setloading(true);
     const coll = collection(db, "blogs");
     const query_ = query(coll);
     const snapshot = await getCountFromServer(query_);
@@ -119,39 +144,94 @@ function WriteABlog({ user, logIn }) {
     const metadata = {
       contentType: "image/jpeg image/png image/gif",
     };
+    setloading(true);
+    if (id) {
+      if (editBlog.coverImg === editImg) {
+        //
+        SetBlog({
+          userName: user.displayName,
+          userImg: user.photoURL,
+          title,
+          cat,
+          content,
+          userEmail: user.email,
 
-    const uploadTask = uploadBytesResumable(storageRef, blogImg, metadata);
-    uploadTask.on(
-      "state_changed",
-      (snapshot) => {
-        setloading(true);
-      },
-      (error) => {
-        console.log(error.code);
-        setloading(false);
-      },
-      () => {
-        getDownloadURL(uploadTask.snapshot.ref).then((downloadURL) => {
-          console.log("File available at", downloadURL);
-          addToDb({
-            userName: user.displayName,
-            userImg: user.photoURL,
-            title,
-            cat,
-            content,
-            userEmail: user.email,
-            index: count + 1,
-            coverImg: downloadURL,
-            views: 0,
-            uid: user.uid,
-            date: getDate(),
-          });
-          resetFlieds();
-          toast.success("blog uploaded");
-          setloading(false);
+          coverImg: editBlog.coverImg,
+
+          uid: user.uid,
+          index: editBlog.index,
+          views: editBlog.views,
+          date: editBlog.date,
         });
+        setloading(false);
+        toast.success("Blog Edited Successfully");
+      } else {
+        const uploadTask = uploadBytesResumable(storageRef, blogImg, metadata);
+        uploadTask.on(
+          "state_changed",
+          (snapshot) => {
+            setloading(true);
+          },
+          (error) => {
+            console.log(error.code);
+            setloading(false);
+          },
+          () => {
+            getDownloadURL(uploadTask.snapshot.ref).then((downloadURL) => {
+              console.log("File available at", downloadURL);
+              SetBlog({
+                userName: user.displayName,
+                userImg: user.photoURL,
+                title,
+                cat,
+                content,
+                userEmail: user.email,
+                index: editBlog.index,
+                coverImg: downloadURL,
+                views: editBlog.views,
+                uid: user.uid,
+                date: editBlog.date,
+              });
+              toast.success("Blog Edited Successfully");
+              setloading(false);
+            });
+          }
+        );
       }
-    );
+    } else {
+      const uploadTask = uploadBytesResumable(storageRef, blogImg, metadata);
+      uploadTask.on(
+        "state_changed",
+        (snapshot) => {
+          setloading(true);
+        },
+        (error) => {
+          console.log(error.code);
+          setloading(false);
+        },
+        () => {
+          getDownloadURL(uploadTask.snapshot.ref).then((downloadURL) => {
+            console.log("File available at", downloadURL);
+            addToDb({
+              userName: user.displayName,
+              userImg: user.photoURL,
+              title,
+              cat,
+              content,
+              userEmail: user.email,
+              index: count + 1,
+              coverImg: downloadURL,
+              views: 0,
+              uid: user.uid,
+              date: getDate(),
+            });
+            resetFlieds();
+            toast.success("blog uploaded");
+            setloading(false);
+          });
+        }
+      );
+    }
   };
   const handleErrors = (e) => {
     e.preventDefault();
@@ -170,6 +250,8 @@ function WriteABlog({ user, logIn }) {
 
   useEffect(() => {
     window.scrollTo(0, 0);
+    getBlog();
+    id ? console.log("True") : console.log("False");
   }, []);
 
   return (
@@ -228,7 +310,7 @@ function WriteABlog({ user, logIn }) {
                   <div></div>
                 </div>
               ) : (
-                <div> Publish</div>
+                <div>{id ? "Finish Edit" : "Publish"}</div>
               )}
             </button>
           </div>
@@ -275,7 +357,9 @@ function WriteABlog({ user, logIn }) {
                     <div className="change_img">
                       <h2>Change cover picture</h2>
                     </div>
-                    <img src={URL.createObjectURL(blogImg)} />
+                    <img
+                      src={editImg ? editImg : URL.createObjectURL(blogImg)}
+                    />
                   </div>
                 </>
               )}
@@ -288,7 +372,6 @@ function WriteABlog({ user, logIn }) {
               value={content}
               onChange={(e) => {
                 setContent(e);
-                console.log(content);
               }}
             />
           </div>

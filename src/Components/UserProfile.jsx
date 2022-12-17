@@ -60,7 +60,12 @@ function UserProfile({ user }) {
                   <Article key={index} blog={blog} />
                   {user?.uid === id && (
                     <div className="per__article__buttons">
-                      <Link className="btn-primary">Edit</Link>
+                      <Link
+                        to={`./edit-blog/${blog.id}`}
+                        className="btn-primary"
+                      >
+                        Edit
+                      </Link>
                       <Link
                         onClick={(e) => delBlog(blog.id)}
                         className="btn-primary"
