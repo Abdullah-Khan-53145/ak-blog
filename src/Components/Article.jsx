@@ -5,7 +5,7 @@ import "../styles/article.css";
 function Article({ blog }) {
   useEffect(() => {}, []);
   return (
-    <div className="article__home__main">
+    <Link to={`/blog/${blog.id}`} className="article__home__main">
       <div className="article__img">
         <img src={blog.coverImg} />
       </div>
@@ -62,10 +62,8 @@ function Article({ blog }) {
           </div>
         </div>
       </div>
-      <Link to={`/blog/${blog.id}`} className="btn-secondary">
-        Read Article
-      </Link>
-    </div>
+      {/* <div className="btn-secondary">Read Article</div> */}
+    </Link>
   );
 }
 

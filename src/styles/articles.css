@@ -130,7 +130,7 @@ padding-bottom: .2rem;
 .articles__grid{
     margin-top: 2rem;
     display:grid;
-    gap:1rem;
+    gap:2rem;
     grid-template-columns: 1fr 1fr 1fr;
     width: 100%;
 }

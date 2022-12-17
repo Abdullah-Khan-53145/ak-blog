@@ -2,6 +2,8 @@ import React from "react";
 import "../styles/header.css";
 import { signInWithPopup, signOut } from "firebase/auth";
 import { auth, provider } from "../firebase";
+import { collection, addDoc } from "firebase/firestore";
+import { db } from "../firebase";
 import { logOutAPI, logInAPI } from "./actions/index";
 import { connect } from "react-redux";
 import { Link } from "react-router-dom";
@@ -19,11 +21,20 @@ function Header({ user, logIn, logOut }) {
       setBackground(false);
     }
   };
+  const addToDb = async (userInfo) => {
+    const docRef = await addDoc(collection(db, "users"), userInfo);
+    console.log("Document written with ID: ", docRef.id);
+  };
   const signIn = async () => {
     signInWithPopup(auth, provider)
       .then((result) => {
         const user = result.user;
         logIn(user);
+        console.log(user.uid);
+        addToDb({
+          name: user.displayName,
+          id: user.uid,
+        });
       })
       .catch((error) => {
         const errorCode = error.code;
@@ -70,6 +81,16 @@ function Header({ user, logIn, logOut }) {
                 }}
               >
                 Home
+              </li>
+            </Link>
+            <Link to="/">
+              <li
+                style={{
+                  textDecoration:
+                    location.pathname === "/" ? "underline" : "none",
+                }}
+              >
+                My Blogs
               </li>
             </Link>
             <Link to="/about">
