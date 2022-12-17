@@ -1,0 +1,55 @@
+.user__profile__main{
+    margin-top: 8rem;
+    display:flex;
+    justify-content: center;
+    align-items: center;
+}
+.user__profile__main .title{
+    font-size: 8rem;
+    margin: 3rem 0;
+}
+.user__profile__child{
+width: 90%;
+
+}
+.user__info{
+    background-color: lightgray;
+    padding: 6rem 0;
+    display: flex;
+    flex-direction: column;
+    gap:1.5rem;
+    justify-content: center;
+    align-items: center;
+}
+.user__info img{
+   object-fit: contain;
+   width: 8rem;
+   height: 8rem;
+   border-radius: 50%;
+}
+.user__profile__main .article__home__main:hover {
+    background-color: white;
+    transform: scale(1);
+}
+.user__profile__main .article__home__main{
+    box-shadow: none;
+   
+
+}
+.per__article{
+    box-shadow: rgba(50, 50, 93, 0.25) 0px 2px 5px -1px, rgba(0, 0, 0, 0.3) 0px 1px 3px -1px;
+    position: relative;
+}
+.per__article__buttons{
+    display:flex;
+    gap:1rem;
+    position:absolute;
+    bottom:2rem;
+    right:2rem;
+}
+.user_profile_articles{
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    gap:2rem;
+
+}

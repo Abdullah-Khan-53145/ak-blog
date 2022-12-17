@@ -9,6 +9,7 @@ import WriteABlog from "./Components/WriteABlog";
 import Footer from "./Components/Footer";
 import About from "./Components/About";
 import ContactUs from "./Components/ContactUs";
+import UserProfile from "./Components/UserProfile";
 function App() {
   const router = createBrowserRouter([
     {
@@ -45,6 +46,16 @@ function App() {
         <div className="app__main">
           <Header />
           <Blog />
+          <Footer />
+        </div>
+      ),
+    },
+    {
+      path: "user/:id",
+      element: (
+        <div className="app__main">
+          <Header />
+          <UserProfile />
           <Footer />
         </div>
       ),
