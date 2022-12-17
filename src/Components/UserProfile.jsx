@@ -47,36 +47,43 @@ function UserProfile({ user }) {
       ) : (
         <div className="user__profile__child">
           <div className="user__info">
-            <img src={blogs[0]?.userImg} alt="" />
-            <h1>{blogs[0]?.userName}</h1>
-            <h2>{blogs[0]?.userEmail}</h2>
+            <img
+              src={user?.uid === id ? user.photoURL : blogs[0]?.userImg}
+              alt=""
+            />
+            <h1>{user?.uid === id ? user.displayName : blogs[0]?.userName}</h1>
+            <h2>{user?.uid === id ? user.email : blogs[0]?.userEmail}</h2>
           </div>
           <h1 className="title">My Blogs</h1>
 
           <div className="user_profile_articles">
-            {blogs.map((blog, index) => (
-              <>
-                <div className="per__article">
-                  <Article key={index} blog={blog} />
-                  {user?.uid === id && (
-                    <div className="per__article__buttons">
-                      <Link
-                        to={`./edit-blog/${blog.id}`}
-                        className="btn-primary"
-                      >
-                        Edit
-                      </Link>
-                      <Link
-                        onClick={(e) => delBlog(blog.id)}
-                        className="btn-primary"
-                      >
-                        Delete
-                      </Link>
-                    </div>
-                  )}
-                </div>
-              </>
-            ))}
+            {blogs.length !== 0 ? (
+              blogs.map((blog, index) => (
+                <>
+                  <div className="per__article">
+                    <Article key={index} blog={blog} />
+                    {user?.uid === id && (
+                      <div className="per__article__buttons">
+                        <Link
+                          to={`./edit-blog/${blog.id}`}
+                          className="btn-primary"
+                        >
+                          Edit
+                        </Link>
+                        <Link
+                          onClick={(e) => delBlog(blog.id)}
+                          className="btn-primary"
+                        >
+                          Delete
+                        </Link>
+                      </div>
+                    )}
+                  </div>
+                </>
+              ))
+            ) : (
+              <h2>No Blogs to show</h2>
+            )}
           </div>
         </div>
       )}
